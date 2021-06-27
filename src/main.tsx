@@ -13,8 +13,8 @@ setup({
 		},
 	},
 	preflight: {
-		'@import': `url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@700&display=swap')`,
-		body: apply`min-h-screen`,
+		'@import': `url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@300;400;700&display=swap')`,
+		body: apply`min-h-screen font-normal`,
 		'#root': apply`min-h-screen relative bg-gray-900`,
 		a: apply`text-gray-900 hover:(text-gray-500) transition-colors no-underline`,
 	},

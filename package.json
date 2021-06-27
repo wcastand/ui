@@ -6,7 +6,10 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "@alexvcasillas/use-observer": "^1.0.3",
+    "@react-three/drei": "^7.0.2",
     "@react-three/fiber": "^7.0.1",
+    "nice-color-palettes": "^3.0.0",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "react-spring": "^9.2.3",

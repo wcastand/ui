@@ -1,7 +1,8 @@
 import React from 'react'
-import { useSpring, animated, config } from 'react-spring'
-import { apply, tw } from 'twind'
 import { css } from 'twind/css'
+import { apply, tw } from 'twind'
+import { useObserver } from '@alexvcasillas/use-observer'
+import { useSpring, animated, config } from 'react-spring'
 
 import { container, section, image, Title } from '../components'
 
@@ -31,8 +32,10 @@ const custom = css`
 `
 
 function BlackAround() {
+	const { inView, ref } = useObserver({ threshold: 0.5 })
 	const props = useSpring({
-		delay: 800,
+		cancel: !inView,
+		delay: 500,
 		loop: true,
 		config: config.slow,
 		to: [{ height: '0px' }, { height: '90px' }, { height: '250px' }, { height: '0px' }],
@@ -45,7 +48,7 @@ function BlackAround() {
 				<Title title="Day.1" />
 				<div className={tw`relative text-base grid grid-cols-1 gap-0`}>
 					<span className={tw(text, latter)}>Black</span>
-					<animated.div style={props} className={tw('relative grid', custom)}>
+					<animated.div ref={ref} style={props} className={tw('relative grid', custom)}>
 						<div className={tw(barwrapper, 'justify-start')}>
 							<div className={tw(bar, barwidth)} />
 						</div>
