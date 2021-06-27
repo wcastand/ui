@@ -90,7 +90,7 @@ function Home() {
 				<Canvas shadows gl={{ alpha: true, antialias: true, pixelRatio: window.devicePixelRatio, shadowMapEnabled: true }} onCreated={init}>
 					<OrthographicCamera position={[0, 10, 0]} makeDefault />
 					<ambientLight intensity={1} color={0xffffff} />
-					<tanimated.pointLight castShadow color={0xffffff} intensity={10} position={position} />
+					<tanimated.pointLight castShadow color={0xffffff} intensity={10} position={position as any} />
 					<Cubes n={10} ratio={ratio} />
 					<mesh ref={planeRef} receiveShadow position={[0, 0, 0]} rotation={[-Math.PI / 2, 0, 0]}>
 						<planeGeometry args={[100, 100 * ratio, 2]} />
