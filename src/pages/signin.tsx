@@ -95,7 +95,7 @@ function SignIn() {
 	const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data)
 
 	return (
-		<div className={tw(container, 'h-screen')}>
+		<div className={tw(container, 'h-screen')} id="day2">
 			<div className={tw(section, 'rounded-sm shadow-sm')}>
 				<Title title="Day.2" />
 				<div className={tw(wrapper)}>

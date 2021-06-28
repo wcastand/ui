@@ -82,7 +82,7 @@ function Home() {
 		camera.updateProjectionMatrix()
 	}
 	return (
-		<section className={tw(container, 'h-screen')}>
+		<section className={tw(container, 'h-screen')} id="home">
 			<div className={tw(section, `shadow-md rounded-sm`)}>
 				<Canvas shadows gl={{ alpha: true, antialias: true, pixelRatio: window.devicePixelRatio, shadowMapEnabled: true }} onCreated={init}>
 					<OrthographicCamera position={[0, 10, 0]} makeDefault />

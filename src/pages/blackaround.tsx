@@ -43,7 +43,7 @@ function BlackAround() {
 	})
 
 	return (
-		<section className={tw(container, 'lg:h-screen')}>
+		<section className={tw(container, 'lg:h-screen')} id="day1">
 			<div
 				className={tw(
 					section,
