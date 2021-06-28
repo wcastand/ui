@@ -9,6 +9,7 @@ import color from 'nice-color-palettes'
 import { useSpring, animated as tanimated } from '@react-spring/three'
 
 import { container, section, Title } from '../components'
+import { randomInteger } from '../utils'
 
 const wrapper = apply`absolute`
 const welcome = apply`text-2xl font-normal`
@@ -17,10 +18,6 @@ const job = apply`text-4xl font-normal`
 const plus = apply`text-xl font-normal`
 const desc = apply`text-vase font-light`
 const link = apply`px-4 first:pl-0 last:pr-0`
-
-function randomInteger(min: number, max: number): number {
-	return Math.floor(Math.random() * (max - min + 1)) + min
-}
 
 function getPos(min: number, max: number): number {
 	let x = randomInteger(min, max)

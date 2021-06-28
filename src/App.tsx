@@ -4,7 +4,7 @@ import { css } from 'twind/css'
 
 import BlackAround from './pages/blackaround'
 import Home from './pages/home'
-// import Racer from './pages/racer'
+import SignIn from './pages/signin'
 
 const snapper = css`
 	max-height: 100vh;
@@ -18,7 +18,7 @@ function App() {
 			<div className={tw(snapper)}>
 				<Home />
 				<BlackAround />
-				{/* <Racer /> */}
+				<SignIn />
 			</div>
 		</React.Suspense>
 	)

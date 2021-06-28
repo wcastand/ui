@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { useRef, useEffect } from 'react'
 import { animated, useSpring, config } from 'react-spring'
 import { useObserver } from '@alexvcasillas/use-observer'
 import { apply, tw } from 'twind'
@@ -27,8 +28,45 @@ export function Title({ title }: TitleProps) {
 	})
 
 	return (
-		<animated.h2 ref={ref} style={props} className={tw('absolute top-4 left-4 text-5xl uppercase font-sans font-bold tracking-tighter')}>
+		<animated.h2
+			ref={ref}
+			style={props}
+			className={tw('z-10 absolute top-4 left-4 text-5xl uppercase font-sans font-bold tracking-tighter')}
+		>
 			{title}
 		</animated.h2>
 	)
+}
+
+export type CanvasProps = {
+	containerRef: React.RefObject<HTMLElement>
+	draw: (ctx: CanvasRenderingContext2D | null, frameCount: number) => void
+} & React.HTMLAttributes<HTMLCanvasElement>
+
+export function Canvas({ containerRef, draw, ...props }: CanvasProps) {
+	const ref = useRef<HTMLCanvasElement>(null)
+
+	useEffect(() => {
+		if (ref.current === null || !containerRef.current) return
+		const rect = containerRef.current.getBoundingClientRect()
+		const canvas = ref.current
+		canvas.width = rect.width
+		canvas.height = rect.height
+		const context = canvas.getContext('2d')
+		let frameCount = 0
+		let animationFrameId = 0
+
+		//Our draw came here
+		const render = () => {
+			frameCount++
+			draw(context, frameCount)
+			animationFrameId = window.requestAnimationFrame(render)
+		}
+		render()
+
+		return () => {
+			window.cancelAnimationFrame(animationFrameId)
+		}
+	}, [draw])
+	return <canvas ref={ref} {...props} />
 }
