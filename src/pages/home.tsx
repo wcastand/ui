@@ -11,7 +11,7 @@ import { useSpring, animated as tanimated } from '@react-spring/three'
 import { container, section, Title } from '../components'
 import { randomInteger } from '../utils'
 
-const wrapper = apply`absolute`
+const wrapper = apply`absolute px-4 md:px-0`
 const welcome = apply`text-2xl font-normal`
 const name = apply`text-6xl font-bold`
 const job = apply`text-4xl font-normal`
@@ -82,7 +82,7 @@ function Home() {
 		camera.updateProjectionMatrix()
 	}
 	return (
-		<section className={tw(container)}>
+		<section className={tw(container, 'h-screen')}>
 			<div className={tw(section, `shadow-md rounded-sm`)}>
 				<Canvas shadows gl={{ alpha: true, antialias: true, pixelRatio: window.devicePixelRatio, shadowMapEnabled: true }} onCreated={init}>
 					<OrthographicCamera position={[0, 10, 0]} makeDefault />

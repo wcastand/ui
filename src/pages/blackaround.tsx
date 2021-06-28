@@ -43,8 +43,18 @@ function BlackAround() {
 	})
 
 	return (
-		<section className={tw(container)}>
-			<div className={tw(section)}>
+		<section className={tw(container, 'lg:h-screen')}>
+			<div
+				className={tw(
+					section,
+					'py-24 md:py-0',
+					css`
+						@media (max-width: 768px) {
+							height: 620px;
+						}
+					`
+				)}
+			>
 				<Title title="Day.1" />
 				<div className={tw`relative text-base grid grid-cols-1 gap-0`}>
 					<span className={tw(text, latter)}>Black</span>

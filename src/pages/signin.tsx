@@ -8,8 +8,8 @@ import React, { useCallback, useEffect, useRef } from 'react'
 import { container, section, Title, Canvas } from '../components'
 import { randomInteger } from '../utils'
 
-const wrapper = apply`relative min-h-full grid grid-cols-3`
-const form = apply`relative col-span-1 flex flex-col justify-center items-center py-12 px-24`
+const wrapper = apply`relative min-h-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3`
+const form = apply`relative col-span-1 flex flex-col justify-center items-center px-4 py-16 md:px-24`
 const canvas = apply`absolute top-0 left-0 w-full h-full`
 const inputContainer = apply`w-full flex flex-col justify-start items-start py-4`
 const wrapperlabel = apply`w-full flex flex-row justify-start items-center`
@@ -19,7 +19,7 @@ const spacer = apply`flex-1`
 const input = apply`w-full border-b-1 px-2 py-1 text-gray-500`
 const button = apply`w-full border-1 px-8 py-2 rounded-sm transition-colors bg-white border-gray-900 text-gray-700 hover:(bg-gray-900 text-white)`
 const logo = apply`w-16 self-start`
-const img = apply`col-span-2 h-full object-cover`
+const img = apply`col-span-1 xl:col-span-2 h-full object-cover`
 const link = apply`absolute bottom-2 right-4 font-normal px-2 rounded-sm bg-white `
 
 type Inputs = {
@@ -95,7 +95,7 @@ function SignIn() {
 	const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data)
 
 	return (
-		<div className={tw(container)}>
+		<div className={tw(container, 'h-screen')}>
 			<div className={tw(section, 'rounded-sm shadow-sm')}>
 				<Title title="Day.2" />
 				<div className={tw(wrapper)}>
