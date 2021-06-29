@@ -55,7 +55,7 @@ function BlackAround() {
 					`
 				)}
 			>
-				<Title title="Day.1" />
+				<Title title="Day.1" subtitle="Animation" />
 				<div className={tw`relative text-base grid grid-cols-1 gap-0`}>
 					<span className={tw(text, latter)}>Black</span>
 					<animated.div ref={ref} style={props} className={tw('relative grid', custom)}>

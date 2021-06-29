@@ -5,6 +5,7 @@ import { css } from 'twind/css'
 import BlackAround from './pages/blackaround'
 import Home from './pages/home'
 import SignIn from './pages/signin'
+import Pong from './pages/pong'
 
 const snapper = css`
 	max-height: 100vh;
@@ -19,6 +20,7 @@ function App() {
 				<Home />
 				<BlackAround />
 				<SignIn />
+				<Pong />
 			</div>
 		</React.Suspense>
 	)
