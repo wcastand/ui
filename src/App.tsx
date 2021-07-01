@@ -6,6 +6,7 @@ import BlackAround from './pages/blackaround'
 import Home from './pages/home'
 import SignIn from './pages/signin'
 import Pong from './pages/pong'
+import Poe from './pages/poe'
 
 const snapper = css`
 	max-height: 100vh;
@@ -21,6 +22,7 @@ function App() {
 				<BlackAround />
 				<SignIn />
 				<Pong />
+				<Poe />
 			</div>
 		</React.Suspense>
 	)

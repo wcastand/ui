@@ -17,8 +17,9 @@ export const image = apply`w-full h-full object-cover`
 export type TitleProps = {
 	title: string
 	subtitle?: string
-}
-export function Title({ title, subtitle }: TitleProps) {
+} & React.HTMLAttributes<HTMLHeadElement>
+
+export function Title({ title, subtitle, className }: TitleProps) {
 	const { inView, ref } = useObserver({ threshold: 0.5 })
 	const props = useSpring({
 		cancel: !inView,
@@ -32,7 +33,10 @@ export function Title({ title, subtitle }: TitleProps) {
 		<animated.h2
 			ref={ref}
 			style={props}
-			className={tw('z-10 absolute top-4 left-4 text-5xl uppercase font-sans font-bold tracking-tighter flex justify-start items-end')}
+			className={tw(
+				'z-10 absolute top-4 left-4 text-5xl uppercase font-sans font-bold tracking-tighter flex justify-start items-end',
+				className
+			)}
 		>
 			{title} {subtitle && <span className={tw('pl-2 text-lg tracking-normal')}>- {subtitle}</span>}
 		</animated.h2>
