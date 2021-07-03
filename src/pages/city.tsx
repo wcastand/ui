@@ -28,6 +28,7 @@ function Cell({ shape }: any) {
 }
 
 function Svg({ url }: any) {
+	// @ts-ignore
 	const { paths } = useLoader(SVGLoader, url)
 	const shapes = useMemo(() => paths.flatMap((p: any) => p.toShapes(true).map((shape: any) => ({ shape }))), [paths])
 	const ref = useRef<THREE.Object3D>()
