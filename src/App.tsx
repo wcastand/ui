@@ -7,6 +7,8 @@ import Home from './pages/home'
 import SignIn from './pages/signin'
 import Pong from './pages/pong'
 import Poe from './pages/poe'
+import City from './pages/city'
+import Loading from './pages/loading'
 
 const snapper = css`
 	max-height: 100vh;
@@ -18,11 +20,12 @@ function App() {
 	return (
 		<React.Suspense fallback={'loading'}>
 			<div className={tw(snapper)}>
-				<Home />
+				{/* <Home />
 				<BlackAround />
 				<SignIn />
 				<Pong />
-				<Poe />
+				<Poe /> */}
+				<Loading />
 			</div>
 		</React.Suspense>
 	)
