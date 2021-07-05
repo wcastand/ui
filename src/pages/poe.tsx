@@ -87,7 +87,7 @@ function Cards() {
 	const ref = React.useRef<THREE.Object3D>()
 	useFrame(() => {
 		if (!ref.current) return
-		ref.current.rotation.y += 0.003
+		ref.current.rotation.y += 0.002
 	})
 	return (
 		<group ref={ref} position={[0, 0, 0]}>
