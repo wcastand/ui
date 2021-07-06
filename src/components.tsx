@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useRef, useEffect } from 'react'
+import { useRef, useCallback, useEffect } from 'react'
 import { animated, useSpring, config } from 'react-spring'
 import { useObserver } from '@alexvcasillas/use-observer'
 import { apply, tw } from 'twind'
@@ -74,6 +74,33 @@ export function Canvas({ containerRef, draw, ...props }: CanvasProps) {
 		}
 	}, [draw])
 	return <canvas ref={ref} {...props} />
+}
+
+export type MiniCanvasProps = {
+	draw: (ctx: CanvasRenderingContext2D | null, frameCount: number) => void
+} & React.HTMLAttributes<HTMLCanvasElement>
+export function MiniCanvas({ draw, ...props }: MiniCanvasProps) {
+	const { inView, ref } = useObserver({ threshold: 0.5 })
+	const pdraw = useCallback(
+		(ctx, frameCount) => {
+			if (inView && ref.current) draw(ctx, frameCount)
+		},
+		[draw, ref, inView]
+	)
+	return (
+		<div
+			ref={ref}
+			className={tw(
+				'relative',
+				css`
+					width: 100px;
+					height: 100px;
+				`
+			)}
+		>
+			<Canvas containerRef={ref} draw={pdraw} {...props} />
+		</div>
+	)
 }
 
 export const SkiDude = ({ size, ...props }: { size?: string } & React.HTMLAttributes<HTMLOrSVGElement>) => (

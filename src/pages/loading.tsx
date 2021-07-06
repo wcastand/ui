@@ -1,9 +1,12 @@
 import * as React from 'react'
+import { useRef } from 'react'
 import { apply, tw } from 'twind'
 import { css } from 'twind/css'
-import { animated, config, useSpring, useSprings } from '@react-spring/web'
+import color from 'nice-color-palettes'
+import { useObserver } from '@alexvcasillas/use-observer'
+import { animated, useSpring, useSprings } from '@react-spring/web'
 
-import { container, section, Title, SkiDude, RocketIcon } from '../components'
+import { container, section, Title, SkiDude, RocketIcon, MiniCanvas } from '../components'
 import { randomInteger } from '../utils'
 
 const wrapper = apply`grid grid-cols-4 gap-12 justify-center items-center`
@@ -223,6 +226,27 @@ function Space() {
 	)
 }
 
+function FillingCube() {
+	const state = useRef({ x: 0, y: 0, color: color[randomInteger(0, color.length - 1)][randomInteger(0, 5)] })
+
+	const draw = React.useCallback(
+		(ctx) => {
+			if (state.current === null) return
+			ctx.fillStyle = state.current.color
+			ctx.fillRect(state.current.x, state.current.y, 10, 10)
+			if (state.current.x + 10 < 100) state.current.x += 10
+			else if (state.current.y + 10 < 100) {
+				state.current.x = 0
+				state.current.y += 10
+			} else {
+				state.current = { x: 0, y: 0, color: color[randomInteger(0, color.length - 1)][randomInteger(0, 5)] }
+			}
+		},
+		[state]
+	)
+	return <MiniCanvas draw={draw} />
+}
+
 function Loading() {
 	return (
 		<div className={tw(container, 'h-screen')} id="loading">
@@ -233,6 +257,7 @@ function Loading() {
 					<DuoSpinner color="green-300" />
 					<GoingUp />
 					<Space />
+					<FillingCube />
 				</div>
 
 				<div className={tw('absolute bottom-4 right-4 text-xs')}>
@@ -246,7 +271,7 @@ function Loading() {
 					</a>
 				</div>
 			</div>
-			<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+			<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width={0} height={0}>
 				<defs>
 					<filter id="goo">
 						<feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
