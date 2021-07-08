@@ -19,11 +19,11 @@ function App() {
 	return (
 		<React.Suspense fallback={'loading'}>
 			<div className={tw(snapper)}>
-				{/* <Home />
+				<Home />
 				<BlackAround />
 				<SignIn />
 				<Pong />
-				<Poe /> */}
+				<Poe />
 				<Loading />
 			</div>
 		</React.Suspense>
