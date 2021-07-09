@@ -51,12 +51,18 @@ export type CanvasProps = {
 export function Canvas({ containerRef, draw, ...props }: CanvasProps) {
 	const ref = useRef<HTMLCanvasElement>(null)
 
-	useEffect(() => {
+	function resize() {
 		if (ref.current === null || !containerRef.current) return
 		const rect = containerRef.current.getBoundingClientRect()
 		const canvas = ref.current
 		canvas.width = rect.width
 		canvas.height = rect.height
+	}
+
+	useEffect(() => {
+		if (ref.current === null || !containerRef.current) return
+		resize()
+		const canvas = ref.current
 		const context = canvas.getContext('2d')
 		let frameCount = 0
 		let animationFrameId = 0
@@ -73,6 +79,11 @@ export function Canvas({ containerRef, draw, ...props }: CanvasProps) {
 			window.cancelAnimationFrame(animationFrameId)
 		}
 	}, [draw])
+
+	useEffect(() => {
+		document.addEventListener('resize', resize)
+		return () => document.removeEventListener('resize', resize)
+	})
 	return <canvas ref={ref} {...props} />
 }
 

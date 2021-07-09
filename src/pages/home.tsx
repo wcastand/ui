@@ -1,15 +1,15 @@
-import React, { useRef, useMemo } from 'react'
 import * as THREE from 'three'
 import { apply, tw } from 'twind'
-import { Canvas, RootState } from '@react-three/fiber'
+import color from 'nice-color-palettes'
+import { Canvas, useThree } from '@react-three/fiber'
 import { OrthographicCamera } from '@react-three/drei'
 import { useObserver } from '@alexvcasillas/use-observer'
 import { useTrail, animated, config } from 'react-spring'
-import color from 'nice-color-palettes'
+import React, { useRef, useState, useEffect, useMemo } from 'react'
 import { useSpring, animated as tanimated } from '@react-spring/three'
 
-import { container, section, Title } from '../components'
 import { randomInteger } from '../utils'
+import { container, section, Title } from '../components'
 
 const wrapper = apply`absolute px-4 md:px-0`
 const welcome = apply`text-2xl font-normal`
@@ -48,8 +48,27 @@ function Cubes({ n, ratio }: { ratio: number; n: number }) {
 	return <>{cubes}</>
 }
 
+function Camera({ planeRef }: { planeRef: React.MutableRefObject<THREE.Object3D | undefined> }) {
+	const state = useThree()
+	useEffect(() => {
+		const {
+			camera,
+			size: { width, height },
+		} = state
+
+		const aabb = new THREE.Box3().setFromObject(planeRef.current!)
+
+		camera.lookAt(new THREE.Vector3(0, 0, 0))
+		camera.zoom = Math.min(width / (aabb.max.x - aabb.min.x), height / (aabb.max.y - aabb.min.y))
+		camera.updateProjectionMatrix()
+	}, [state])
+
+	return <OrthographicCamera position={[0, 10, 0]} makeDefault />
+}
+
 function Home() {
 	const planeRef = useRef<THREE.Object3D>()
+	const [ratio, setRatio] = useState(window.innerHeight / window.innerWidth)
 	const { inView, ref } = useObserver({ threshold: 0.5 })
 	const trail = useTrail(5, {
 		cancel: !inView,
@@ -67,25 +86,20 @@ function Home() {
 		to: [...anims, { position: [0, 1, 0] }],
 	})
 
-	const ratio = useMemo(() => window.innerHeight / window.innerWidth, [])
-
-	const init = (state: RootState) => {
-		const {
-			camera,
-			size: { width, height },
-		} = state
-
-		const aabb = new THREE.Box3().setFromObject(planeRef.current!)
-
-		camera.lookAt(new THREE.Vector3(0, 0, 0))
-		camera.zoom = Math.min(width / (aabb.max.x - aabb.min.x), height / (aabb.max.y - aabb.min.y))
-		camera.updateProjectionMatrix()
+	function resize() {
+		setRatio(window.innerHeight / window.innerWidth)
 	}
+
+	useEffect(() => {
+		window.addEventListener('resize', resize)
+		return () => window.removeEventListener('resize', resize)
+	})
+
 	return (
 		<section className={tw(container, 'h-screen')} id="home">
 			<div className={tw(section, `shadow-md rounded-sm`)}>
-				<Canvas shadows gl={{ alpha: true, antialias: true, pixelRatio: window.devicePixelRatio, shadowMapEnabled: true }} onCreated={init}>
-					<OrthographicCamera position={[0, 10, 0]} makeDefault />
+				<Canvas shadows gl={{ alpha: true, antialias: true, pixelRatio: window.devicePixelRatio, shadowMapEnabled: true }}>
+					<Camera planeRef={planeRef} />
 					<ambientLight intensity={1} color={0xffffff} />
 					<tanimated.pointLight castShadow color={0xffffff} intensity={10} position={position as any} />
 					<Cubes n={10} ratio={ratio} />

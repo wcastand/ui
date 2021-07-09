@@ -1,13 +1,14 @@
-import * as React from 'react'
 import { tw } from 'twind'
+import * as React from 'react'
 import { css } from 'twind/css'
 
-import BlackAround from './pages/blackaround'
-import Home from './pages/home'
-import SignIn from './pages/signin'
-import Pong from './pages/pong'
 import Poe from './pages/poe'
+import Home from './pages/home'
+import Pong from './pages/pong'
+import Todo from './pages/todo'
+import SignIn from './pages/signin'
 import Loading from './pages/loading'
+import BlackAround from './pages/blackaround'
 
 const snapper = css`
 	max-height: 100vh;
@@ -25,6 +26,7 @@ function App() {
 				<Pong />
 				<Poe />
 				<Loading />
+				<Todo />
 			</div>
 		</React.Suspense>
 	)

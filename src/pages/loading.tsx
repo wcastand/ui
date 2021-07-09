@@ -1,13 +1,12 @@
 import * as React from 'react'
 import { useRef } from 'react'
-import { apply, tw } from 'twind'
 import { css } from 'twind/css'
+import { apply, tw } from 'twind'
 import color from 'nice-color-palettes'
-import { useObserver } from '@alexvcasillas/use-observer'
 import { animated, useSpring, useSprings } from '@react-spring/web'
 
-import { container, section, Title, SkiDude, RocketIcon, MiniCanvas } from '../components'
 import { randomInteger } from '../utils'
+import { container, section, Title, SkiDude, RocketIcon, MiniCanvas } from '../components'
 
 const wrapper = apply`grid grid-cols-4 gap-12 justify-center items-center`
 const gooey = css`
