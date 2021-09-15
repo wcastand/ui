@@ -16,6 +16,9 @@ const wrapper = apply(
 	`mx-auto rounded-sm border shadow`,
 	css`
 		width: 420px;
+		@media (max-width: 640px) {
+			width: 100%;
+		}
 	`
 )
 const form = apply`w-full flex justify-center items-center`
@@ -158,7 +161,7 @@ function TodoPage() {
 	return (
 		<div className={tw(container, 'h-screen')} id="loading">
 			<div className={tw(section)}>
-				<Title title="Day.6" subtitle="Todo App" />
+				<Title title="Todo App." />
 				<Todos />
 			</div>
 		</div>

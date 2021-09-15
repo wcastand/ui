@@ -8,7 +8,7 @@ import { animated, useSpring, useSprings } from '@react-spring/web'
 import { randomInteger } from '../utils'
 import { container, section, Title, SkiDude, RocketIcon, MiniCanvas } from '../components'
 
-const wrapper = apply`grid grid-cols-4 gap-12 justify-center items-center`
+const wrapper = apply`grid grid-cols-2 md:(grid-cols-4) gap-12 justify-center items-center`
 const gooey = css`
 	filter: url(#goo);
 `
@@ -250,7 +250,7 @@ function Loading() {
 	return (
 		<div className={tw(container, 'h-screen')} id="loading">
 			<div className={tw(section)}>
-				<Title title="Day.5" subtitle="Loading" />
+				<Title title="Loading." />
 				<div className={tw(wrapper)}>
 					<GoeySpinner />
 					<DuoSpinner color="green-300" />

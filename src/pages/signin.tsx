@@ -97,7 +97,7 @@ function SignIn() {
 	return (
 		<div className={tw(container, 'h-screen')} id="day2">
 			<div className={tw(section, 'rounded-sm shadow-sm')}>
-				<Title title="Day.2" subtitle="Rainbow form" />
+				<Title title="Rainbow Form." />
 				<div className={tw(wrapper)}>
 					<form ref={ref} className={tw(form)} onSubmit={handleSubmit(onSubmit)}>
 						<Canvas containerRef={ref} draw={draw} className={tw(canvas)} />

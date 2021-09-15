@@ -49,13 +49,13 @@ function BlackAround() {
 					section,
 					'py-24 md:py-0',
 					css`
-						@media (max-width: 768px) {
+						@media (max-width: 1024px) {
 							height: 620px;
 						}
 					`
 				)}
 			>
-				<Title title="Day.1" subtitle="Animation" />
+				<Title title="Animation." />
 				<div className={tw`relative text-base grid grid-cols-1 gap-0`}>
 					<span className={tw(text, latter)}>Black</span>
 					<animated.div ref={ref} style={props} className={tw('relative grid', custom)}>
@@ -76,12 +76,19 @@ function BlackAround() {
 					<span className={tw(text, latter)}>round</span>
 				</div>
 				<div className={tw(thanks)}>
-					<a href="https://unsplash.com/photos/pumko2FFxY0" title="link to pic" target="_blank">
-						Thanks for the pic
-					</a>
-					<a href="https://dribbble.com/shots/15899930-Intro-Animation-Awwwards-Course" title="link to inspi" target="_blank">
-						Thanks for the inspiration (first 3 seconds)
-					</a>
+					<span>
+						Thanks for the{' '}
+						<a href="https://unsplash.com/photos/pumko2FFxY0" title="link to pic" target="_blank">
+							pic
+						</a>
+					</span>
+					<span>
+						Thanks for the{' '}
+						<a href="https://dribbble.com/shots/15899930-Intro-Animation-Awwwards-Course" title="link to inspi" target="_blank">
+							inspiration
+						</a>{' '}
+						(first 2 seconds)
+					</span>
 				</div>
 			</div>
 		</section>

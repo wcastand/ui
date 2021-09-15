@@ -1,13 +1,13 @@
 import { tw } from 'twind'
 import * as React from 'react'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { css } from 'twind/css'
 
-import Poe from './pages/poe'
 import Home from './pages/home'
-import Pong from './pages/pong'
 import Todo from './pages/todo'
 import SignIn from './pages/signin'
 import Loading from './pages/loading'
+import JeopardyApp from './pages/jeopardy'
 import BlackAround from './pages/blackaround'
 
 const snapper = css`
@@ -20,13 +20,18 @@ function App() {
 	return (
 		<React.Suspense fallback={'loading'}>
 			<div className={tw(snapper)}>
-				<Home />
-				<BlackAround />
-				<SignIn />
-				<Pong />
-				<Poe />
-				<Loading />
-				<Todo />
+				<Router>
+					<Switch>
+						<Route exact path="/">
+							<Home />
+							<BlackAround />
+							<Loading />
+							<SignIn />
+							<Todo />
+							<JeopardyApp />
+						</Route>
+					</Switch>
+				</Router>
 			</div>
 		</React.Suspense>
 	)

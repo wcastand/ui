@@ -11,7 +11,7 @@ export const container = apply(
 	`,
 	apply`w-screen relative top-0 left-0 text-gray-900 font-sans font-bold p-0 lg:p-12`
 )
-export const section = apply`relative h-full w-full flex justify-center items-center bg-white`
+export const section = apply`relative h-full w-full flex justify-center items-center bg-white pt-8 md:(pt-0)`
 export const image = apply`w-full h-full object-cover`
 
 export type TitleProps = {
@@ -34,11 +34,12 @@ export function Title({ title, subtitle, className }: TitleProps) {
 			ref={ref}
 			style={props}
 			className={tw(
-				'z-10 absolute top-4 left-4 text-5xl uppercase font-sans font-bold tracking-tighter flex justify-start items-end',
+				'z-10 absolute top-4 left-4 text-5xl uppercase font-sans font-bold tracking-tighter flex justify-start sm:(items-end flex-row) items-start flex-col',
 				className
 			)}
 		>
-			{title} {subtitle && <span className={tw('pl-2 text-lg tracking-normal')}>- {subtitle}</span>}
+			<span className={tw('flex-1')}>{title}</span>{' '}
+			{subtitle && <span className={tw('flex-1 pl-2 text-lg tracking-normal')}>- {subtitle}</span>}
 		</animated.h2>
 	)
 }
