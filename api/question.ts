@@ -1,5 +1,6 @@
-import fetch from 'isomorphic-unfetch'
 import { VercelRequest, VercelResponse } from '@vercel/node'
+import * as fetchImport from 'isomorphic-unfetch'
+const fetch = (fetchImport.default || fetchImport) as typeof fetchImport.default
 
 const base = 'https://jservice.io/'
 
