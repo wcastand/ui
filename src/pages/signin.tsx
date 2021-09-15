@@ -72,7 +72,7 @@ function SignIn() {
 	}, [ref, stars])
 
 	const draw = useCallback(
-		(ctx: CanvasRenderingContext2D | null, frameCount: number) => {
+		(ctx: CanvasRenderingContext2D | null) => {
 			if (ctx === null) return
 			for (let star of stars.current) {
 				ctx.fillStyle = star.color

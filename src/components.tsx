@@ -46,7 +46,7 @@ export function Title({ title, subtitle, className }: TitleProps) {
 
 export type CanvasProps = {
 	containerRef: React.RefObject<HTMLElement>
-	FPS: number
+	FPS?: number
 	draw: (ctx: CanvasRenderingContext2D | null, size: { w: number; h: number }) => void
 } & React.HTMLAttributes<HTMLCanvasElement>
 
