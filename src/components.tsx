@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useRef, useMemo, useCallback, useEffect } from 'react'
+import { useRef, useLayoutEffect, useMemo, useCallback, useEffect } from 'react'
 import { animated, useSpring, config } from 'react-spring'
 import { useObserver } from '@alexvcasillas/use-observer'
 import { apply, tw } from 'twind'
@@ -87,10 +87,11 @@ export function Canvas({ containerRef, draw, FPS = 60, ...props }: CanvasProps) 
 		}
 	}, [draw])
 
-	useEffect(() => {
-		document.addEventListener('resize', resize)
-		return () => document.removeEventListener('resize', resize)
-	})
+	useLayoutEffect(() => {
+		window.addEventListener('resize', resize)
+		return () => window.removeEventListener('resize', resize)
+	}, [])
+
 	return <canvas ref={ref} {...props} />
 }
 

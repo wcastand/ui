@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useLayoutEffect, useEffect } from 'react'
 import { apply, tw } from 'twind'
 import create from 'zustand'
 import shallow from 'zustand/shallow'
@@ -123,7 +123,11 @@ function Home() {
 
 	useEffect(() => {
 		reset()
-	}, [ref.current])
+	}, [])
+	useLayoutEffect(() => {
+		window.addEventListener('resize', reset)
+		return () => window.removeEventListener('resize', reset)
+	}, [])
 
 	return (
 		<section className={tw(container, 'h-screen')} id="home">
