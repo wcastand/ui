@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useRef, useCallback, useEffect } from 'react'
+import { useRef, useMemo, useCallback, useEffect } from 'react'
 import { animated, useSpring, config } from 'react-spring'
 import { useObserver } from '@alexvcasillas/use-observer'
 import { apply, tw } from 'twind'
@@ -46,11 +46,14 @@ export function Title({ title, subtitle, className }: TitleProps) {
 
 export type CanvasProps = {
 	containerRef: React.RefObject<HTMLElement>
-	draw: (ctx: CanvasRenderingContext2D | null, frameCount: number) => void
+	FPS: number
+	draw: (ctx: CanvasRenderingContext2D | null, size: { w: number; h: number }) => void
 } & React.HTMLAttributes<HTMLCanvasElement>
 
-export function Canvas({ containerRef, draw, ...props }: CanvasProps) {
+export function Canvas({ containerRef, draw, FPS = 60, ...props }: CanvasProps) {
 	const ref = useRef<HTMLCanvasElement>(null)
+	const lastFrameTime = useRef(0)
+	const FRAME_MIN_TIME = useMemo(() => (1000 / 60) * (60 / FPS) - (1000 / 60) * 0.5, [FPS])
 
 	function resize() {
 		if (ref.current === null || !containerRef.current) return
@@ -65,16 +68,19 @@ export function Canvas({ containerRef, draw, ...props }: CanvasProps) {
 		resize()
 		const canvas = ref.current
 		const context = canvas.getContext('2d')
-		let frameCount = 0
 		let animationFrameId = 0
-
 		//Our draw came here
-		const render = () => {
-			frameCount++
-			draw(context, frameCount)
+		const render = (time: number) => {
+			if (time - lastFrameTime.current < FRAME_MIN_TIME) {
+				//skip the frame if the call is too early
+				requestAnimationFrame(render)
+				return // return as there is nothing to do
+			}
+			lastFrameTime.current = time
+			draw(context, { w: canvas.width, h: canvas.height })
 			animationFrameId = window.requestAnimationFrame(render)
 		}
-		render()
+		window.requestAnimationFrame(render)
 
 		return () => {
 			window.cancelAnimationFrame(animationFrameId)
