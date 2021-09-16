@@ -1,15 +1,14 @@
 import { tw } from 'twind'
 import * as React from 'react'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { css } from 'twind/css'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 import Home from './pages/home'
 import Todo from './pages/todo'
-import SignIn from './pages/signin'
+import OClock from './pages/clock'
 import Loading from './pages/loading'
 import JeopardyApp from './pages/jeopardy'
 import BlackAround from './pages/blackaround'
-import OClock from './pages/clock'
 
 const snapper = css`
 	max-height: 100vh;
@@ -27,7 +26,6 @@ function App() {
 							<Home />
 							<BlackAround />
 							<Loading />
-							<SignIn />
 							<Todo />
 							<JeopardyApp />
 							<OClock />
