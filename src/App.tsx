@@ -9,6 +9,7 @@ import SignIn from './pages/signin'
 import Loading from './pages/loading'
 import JeopardyApp from './pages/jeopardy'
 import BlackAround from './pages/blackaround'
+import OClock from './pages/clock'
 
 const snapper = css`
 	max-height: 100vh;
@@ -23,12 +24,13 @@ function App() {
 				<Router>
 					<Switch>
 						<Route exact path="/">
-							<Home />
+							{/* <Home />
 							<BlackAround />
 							<Loading />
 							<SignIn />
 							<Todo />
-							<JeopardyApp />
+							<JeopardyApp /> */}
+							<OClock />
 						</Route>
 					</Switch>
 				</Router>
