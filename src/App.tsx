@@ -24,12 +24,12 @@ function App() {
 				<Router>
 					<Switch>
 						<Route exact path="/">
-							{/* <Home />
+							<Home />
 							<BlackAround />
 							<Loading />
 							<SignIn />
 							<Todo />
-							<JeopardyApp /> */}
+							<JeopardyApp />
 							<OClock />
 						</Route>
 					</Switch>
