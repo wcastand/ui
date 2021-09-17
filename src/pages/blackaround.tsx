@@ -4,10 +4,9 @@ import { apply, tw } from 'twind'
 import { useObserver } from '@alexvcasillas/use-observer'
 import { useSpring, animated, config } from 'react-spring'
 
-import { container, section, image, Title } from '../components'
+import { container, section, image } from '../components'
 
 const text = apply`text-uppercase block text-9xl leading-none`
-const thanks = apply`absolute bottom-4 left-4 text-sm flex flex-col`
 
 const barwrapper = apply`w-full h-full flex`
 const bar = apply`h-full bg-gray-900`
@@ -43,39 +42,37 @@ function BlackAround() {
 	})
 
 	return (
-		<section className={tw(container, 'lg:h-screen')} id="day1">
-			<div
-				className={tw(
-					section,
-					'py-24 md:py-0',
-					css`
-						@media (max-width: 1024px) {
-							height: 620px;
-						}
-					`
-				)}
-			>
-				<Title title="Animation." />
-				<div className={tw`relative text-base grid grid-cols-1 gap-0`}>
-					<span className={tw(text, latter)}>Black</span>
-					<animated.div ref={ref} style={props} className={tw('relative grid', custom)}>
-						<div className={tw(barwrapper, 'justify-start')}>
-							<div className={tw(bar, barwidth)} />
-						</div>
-						<div className={tw(barwrapper, 'justify-center')}>
-							<div className={tw(bar, barwidth)} />
-						</div>
-						<img className={tw(image)} src="/bg.jpg" alt="test" />
-						<div className={tw(barwrapper, 'justify-center')}>
-							<div className={tw(bar, barwidth)} />
-						</div>
-						<div className={tw(barwrapper, 'justify-end')}>
-							<div className={tw(bar, barwidth)} />
-						</div>
-					</animated.div>
-					<span className={tw(text, latter)}>round</span>
+		<section className={tw(container)} id="animation">
+			<div ref={ref} className={tw(section)}>
+				<div
+					className={tw(
+						'flex-1 mx-auto flex justify-center items-center',
+						css`
+							min-height: 470px;
+						`
+					)}
+				>
+					<div className={tw(`relative text-base grid grid-cols-1 gap-0 justify-start items-start`)}>
+						<span className={tw(text, latter)}>Black</span>
+						<animated.div ref={ref} style={props} className={tw('relative grid', custom)}>
+							<div className={tw(barwrapper, 'justify-start')}>
+								<div className={tw(bar, barwidth)} />
+							</div>
+							<div className={tw(barwrapper, 'justify-center')}>
+								<div className={tw(bar, barwidth)} />
+							</div>
+							<img className={tw(image)} src="/bg.jpg" alt="test" />
+							<div className={tw(barwrapper, 'justify-center')}>
+								<div className={tw(bar, barwidth)} />
+							</div>
+							<div className={tw(barwrapper, 'justify-end')}>
+								<div className={tw(bar, barwidth)} />
+							</div>
+						</animated.div>
+						<span className={tw(text, latter)}>round</span>
+					</div>
 				</div>
-				<div className={tw(thanks)}>
+				<div className={tw('absolute bottom-2 left-2 text-sm flex flex-col px-4')}>
 					<span>
 						Thanks for the{' '}
 						<a href="https://unsplash.com/photos/pumko2FFxY0" title="link to pic" target="_blank">
@@ -86,8 +83,7 @@ function BlackAround() {
 						Thanks for the{' '}
 						<a href="https://dribbble.com/shots/15899930-Intro-Animation-Awwwards-Course" title="link to inspi" target="_blank">
 							inspiration
-						</a>{' '}
-						(first 2 seconds)
+						</a>
 					</span>
 				</div>
 			</div>

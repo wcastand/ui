@@ -1,15 +1,14 @@
-import React, { useLayoutEffect, useEffect } from 'react'
-import { apply, tw } from 'twind'
 import create from 'zustand'
+import { apply, tw } from 'twind'
 import shallow from 'zustand/shallow'
-import { TiMediaPlay, TiMediaPause } from 'react-icons/ti'
+import React, { useLayoutEffect, useEffect } from 'react'
 import { useObserver } from '@alexvcasillas/use-observer'
 import { useTrail, animated, config } from 'react-spring'
+import { TiMediaPlay, TiMediaPause } from 'react-icons/ti'
 
-import { container, section, Title, Canvas } from '../components'
 import { randomInteger } from '../utils'
+import { container, section, Canvas } from '../components'
 
-const wrapper = apply`absolute px-4 md:px-0`
 const welcome = apply`text-2xl font-normal`
 const name = apply`text-6xl font-bold`
 const job = apply`text-4xl font-normal`
@@ -130,11 +129,10 @@ function Home() {
 	}, [])
 
 	return (
-		<section className={tw(container, 'h-screen')} id="home">
-			<div ref={ref} className={tw(section, `shadow-md rounded-sm`)}>
-				<Title title="Intro." />
-				<Canvas containerRef={ref} draw={draw} FPS={12} />
-				<div className={tw('absolute top-16 left-2 flex flex-row justify-center items-center gap-1')}>
+		<section className={tw(container)} id="home">
+			<div ref={ref} className={tw(section)}>
+				<Canvas containerRef={ref} draw={draw} FPS={12} className={tw('z-0 absolute top-0 left-0')} />
+				<div className={tw('absolute top-2 right-2 z-10 flex flex-row justify-center items-center gap-1')}>
 					<button className={tw(btn)} onClick={reset}>
 						reset
 					</button>
@@ -142,7 +140,7 @@ function Home() {
 						{isPlaying ? <TiMediaPause size={20} /> : <TiMediaPlay size={20} />}
 					</button>
 				</div>
-				<div className={tw(wrapper)}>
+				<div className={tw('flex-1 flex flex-col justify-center items-start z-10 px-2')}>
 					<animated.span style={trail[0]} className={tw(welcome)}>
 						Hi, I'm
 					</animated.span>
@@ -156,7 +154,7 @@ function Home() {
 						and beginner in Rust
 					</animated.h5>
 					<animated.p style={trail[3]} className={tw(desc)}>
-						Mainly fun and experiments found here, also looking for a remote job.
+						Mostly trying stuff, also looking for a remote job.
 					</animated.p>
 					<animated.div style={trail[4]}>
 						<a target="_blank" className={tw(link)} href="https://twitter.com/wcastand" tabIndex={1} accessKey="t" title="Twitter">

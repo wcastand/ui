@@ -3,24 +3,21 @@ import * as React from 'react'
 import { css } from 'twind/css'
 import { apply, tw } from 'twind'
 import shallow from 'zustand/shallow'
+import { compareTwoStrings } from 'string-similarity'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { animated, useSpring } from '@react-spring/web'
 
-import { container, section, Title } from '../components'
+import { container, section } from '../components'
 
 const wrapper = apply(
 	`mx-auto rounded-sm border-2 font-normal font-sans text-base rounded overflow-hidden`,
 	css`
-		width: 420px;
-		@media (max-width: 640px) {
-			width: 100%;
-		}
+		max-width: 420px;
 	`
 )
 const form = apply`w-full flex flex-col justify-center items-center`
 const input = apply`w-full flex-1 px-4 py-2 border-t-2 border-b-2`
 const button = apply`text-center flex-1 text-sm py-2 transition-colors`
-const thanks = apply`absolute bottom-4 left-4 text-sm`
 
 export type CategoryType = {
 	id: number
@@ -55,6 +52,16 @@ export type State = {
 	nopoint: () => void
 }
 
+function decodeHTMLEntities(str: string): string {
+	let res = str
+	if (res && typeof res === 'string') {
+		// strip script/html tags
+		res = res.replace(/<script[^>]*>([\S\s]*?)<\/script>/gim, '')
+		res = res.replace(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gim, '')
+	}
+	return res
+}
+
 const allStoreSelector = (s: State) => s
 
 const useStore = create<State>((set, get) => ({
@@ -65,8 +72,10 @@ const useStore = create<State>((set, get) => ({
 	reset: () => set({ score: 0, question: undefined, state: 0 }),
 	nopoint: () => set({ state: 2 }),
 	answer: (answer: string) => {
-		const result = get().question?.answer === answer
-		if (result) {
+		const r = get().question?.answer || ''
+		const result = compareTwoStrings(decodeHTMLEntities(r.toUpperCase()), answer.toUpperCase())
+		console.log(result, decodeHTMLEntities(r))
+		if (result > 0.75) {
 			set((s) => ({
 				score: s.state !== 2 ? s.score + (s.question?.value ?? 100) : s.score,
 				state: 1,
@@ -83,20 +92,6 @@ const useStore = create<State>((set, get) => ({
 
 type Input = {
 	answer: string
-}
-function Spinner() {
-	return (
-		<div
-			className={tw(
-				'flex-1 flex justify-center items-center',
-				css`
-					min-height: 80px;
-				`
-			)}
-		>
-			<div className={tw('h-8 w-8 border-b-2 border-l-2 border-t-2 border-blue-500 rounded-full transition-all animate-spin')} />
-		</div>
-	)
 }
 
 function Jeopardy() {
@@ -168,13 +163,10 @@ function Jeopardy() {
 
 function JeopardyApp() {
 	return (
-		<div className={tw(container, 'h-screen')} id="loading">
+		<div className={tw(container)} id="jeopardy">
 			<div className={tw(section)}>
-				<Title title="Jeopardy." subtitle="I suck at this" />
 				<Jeopardy />
-			</div>
-			<div className={tw('relative')}>
-				<div className={tw(thanks)}>
+				<div className={tw('absolute bottom-2 left-2 text-sm')}>
 					Thanks for the{' '}
 					<a className={tw('text-underline')} href="https://jservice.io/" title="link to api" target="_blank">
 						API
@@ -189,3 +181,18 @@ function JeopardyApp() {
 }
 
 export default JeopardyApp
+
+/*
+	<p className={tw()}>
+						Because the answers are scrapped from{' '}
+						<a className={tw('underline')} href="https://j-archive.com/" title="link to jArchive" target="_blank">
+							jArchive
+						</a>
+						, some are impossible to use correctly and/or guess (multiple answers, details in parenthesis, ...).
+					</p>
+					<p>
+						I convert the answer to uppercase and remove some special character aswell as using a string comparaison score to try to make it
+						work.
+					</p>
+					<p>but it's mostly for fun, don't be mad at me x)</p>
+					*/

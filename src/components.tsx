@@ -9,40 +9,10 @@ export const container = apply(
 	css`
 		scroll-snap-align: start;
 	`,
-	apply`w-screen relative top-0 left-0 text-gray-900 font-sans font-bold p-0 lg:p-12`
+	apply`min-h-screen w-screen lg:(p-24) flex`
 )
-export const section = apply`relative h-full w-full flex justify-center items-center bg-white pt-8 md:(pt-0)`
+export const section = apply`flex-1 flex flex-col justify-center items-center relative bg-white lg:(rounded)`
 export const image = apply`w-full h-full object-cover`
-
-export type TitleProps = {
-	title: string
-	subtitle?: string
-} & React.HTMLAttributes<HTMLHeadElement>
-
-export function Title({ title, subtitle, className }: TitleProps) {
-	const { inView, ref } = useObserver({ threshold: 0.5 })
-	const props = useSpring({
-		cancel: !inView,
-		delay: 250,
-		config: config.molasses,
-		to: { transform: 'translateX(0%)', opacity: 1 },
-		from: { transform: 'translateX(20%)', opacity: 0 },
-	})
-
-	return (
-		<animated.h2
-			ref={ref}
-			style={props}
-			className={tw(
-				'z-10 absolute top-4 left-4 text-5xl uppercase font-sans font-bold tracking-tighter flex justify-start sm:(items-end flex-row) items-start flex-col',
-				className
-			)}
-		>
-			<span className={tw('flex-1')}>{title}</span>{' '}
-			{subtitle && <span className={tw('flex-1 pl-2 text-lg tracking-normal')}>- {subtitle}</span>}
-		</animated.h2>
-	)
-}
 
 export type CanvasProps = {
 	containerRef: React.RefObject<HTMLElement>

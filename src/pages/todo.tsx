@@ -10,7 +10,7 @@ import { TiDeleteOutline } from 'react-icons/ti'
 import { animated, useTransition } from '@react-spring/web'
 
 import { fromNow } from '../utils'
-import { container, section, Title } from '../components'
+import { container, section } from '../components'
 
 const wrapper = apply(
 	`mx-auto rounded-sm border shadow`,
@@ -159,9 +159,8 @@ function Todos() {
 
 function TodoPage() {
 	return (
-		<div className={tw(container, 'h-screen')} id="loading">
+		<div className={tw(container)} id="todo">
 			<div className={tw(section)}>
-				<Title title="Todo App." />
 				<Todos />
 			</div>
 		</div>

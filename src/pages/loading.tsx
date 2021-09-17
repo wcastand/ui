@@ -6,9 +6,8 @@ import color from 'nice-color-palettes'
 import { animated, useSpring, useSprings } from '@react-spring/web'
 
 import { randomInteger } from '../utils'
-import { container, section, Title, SkiDude, RocketIcon, MiniCanvas } from '../components'
+import { container, section, SkiDude, RocketIcon, MiniCanvas } from '../components'
 
-const wrapper = apply`grid grid-cols-2 md:(grid-cols-4) gap-12 justify-center items-center`
 const gooey = css`
 	filter: url(#goo);
 `
@@ -145,7 +144,15 @@ function GoingUp() {
 		from: { transform: 'translateX(100px) ' },
 	})
 	return (
-		<div className={tw('relative w-full h-full overflow-hidden -skew-y-12')}>
+		<div
+			className={tw(
+				'relative w-full h-full overflow-hidden -skew-y-12',
+				css`
+					width: 100px;
+					height: 100px;
+				`
+			)}
+		>
 			<div className={tw(`absolute w-full h-1 bottom-0 left-0 bg-yellow-200`)} />
 			<animated.div style={springT} className={tw('absolute bottom-1')}>
 				<Tree color={'green-200'} />
@@ -248,10 +255,9 @@ function FillingCube() {
 
 function Loading() {
 	return (
-		<div className={tw(container, 'h-screen')} id="loading">
+		<div className={tw(container)} id="loading">
 			<div className={tw(section)}>
-				<Title title="Loading." />
-				<div className={tw(wrapper)}>
+				<div className={tw('flex-1 w-full flex flex-wrap gap-4 justify-center items-center')}>
 					<GoeySpinner />
 					<DuoSpinner color="green-300" />
 					<GoingUp />
@@ -259,7 +265,7 @@ function Loading() {
 					<FillingCube />
 				</div>
 
-				<div className={tw('absolute bottom-4 right-4 text-xs')}>
+				<div className={tw('absolute bottom-2 left-2 text-xs')}>
 					Icons made by{' '}
 					<a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">
 						Smashicons

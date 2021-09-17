@@ -5,18 +5,9 @@ import { apply, tw } from 'twind'
 import shallow from 'zustand/shallow'
 import { Temporal } from '@js-temporal/polyfill'
 
-import { container, section, Title } from '../components'
+import { container, section } from '../components'
 
-const wrapper = apply(
-	`mx-auto rounded-sm border-2 border-gray-900 font-normal font-sans text-base rounded overflow-hidden`,
-	css`
-		width: 320px;
-		@media (max-width: 640px) {
-			width: 100%;
-		}
-	`
-)
-const thanks = apply`absolute bottom-4 left-4 text-sm`
+const wrapper = apply(`mx-auto rounded-sm border-2 border-gray-900 font-normal font-sans text-base rounded overflow-hidden`)
 
 const allStoreSelector = (s: State) => s
 export type State = {
@@ -109,7 +100,7 @@ function Clock() {
 							<div
 								key={`h_${idx}`}
 								className={tw(
-									'flex justify-center item-center text-4xl ml-2 bg-white',
+									'flex justify-center items-center text-4xl ml-2 bg-white',
 									time.hour === h ? 'text-red-500' : 'text-gray-900',
 									dm
 								)}
@@ -133,7 +124,7 @@ function Clock() {
 							<div
 								key={`m_${idx}`}
 								className={tw(
-									'flex justify-center item-center text-4xl mr-2 ml-1 bg-white',
+									'flex justify-center items-center text-4xl mr-2 ml-1 bg-white',
 									time.minute === m ? 'text-red-500' : 'text-gray-900',
 									dm
 								)}
@@ -156,11 +147,7 @@ function Clock() {
 						return (
 							<div
 								key={`s_${idx}`}
-								className={tw(
-									'flex justify-center item-center text-xl ml-2 px-1 bg-white',
-									s % 5 === 0 ? 'text-red-500' : 'text-gray-900',
-									ds
-								)}
+								className={tw('flex justify-center items-center text-xl px-1 bg-white', s % 5 === 0 ? 'text-red-500' : 'text-gray-900', ds)}
 							>
 								{s.toLocaleString('fr', { minimumIntegerDigits: 2 })}
 							</div>
@@ -174,9 +161,8 @@ function Clock() {
 
 function OClock() {
 	return (
-		<div className={tw(container, 'h-screen')} id="loading">
+		<div className={tw(container)} id="oclock">
 			<div className={tw(section)}>
-				<Title title="O'Clock." />
 				<Clock />
 			</div>
 		</div>
