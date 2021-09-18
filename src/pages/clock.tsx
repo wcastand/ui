@@ -71,7 +71,7 @@ function Clock() {
 							`
 						)}
 					>
-						<h1 className={tw('font-bold text-red-500', dlabel)}>{time.day}</h1>
+						<h1 className={tw('font-bold text-red-300', dlabel)}>{time.day}</h1>
 						<div className={tw('px-4')}>
 							<svg viewBox="0 0 36 20" className={tw('w-full')}>
 								<text x="0" y="15" className={tw('font-semibold text-uppercase text-center')}>
@@ -101,7 +101,7 @@ function Clock() {
 								key={`h_${idx}`}
 								className={tw(
 									'flex justify-center items-center text-4xl ml-2 bg-white',
-									time.hour === h ? 'text-red-500' : 'text-gray-900',
+									time.hour === h ? 'text-red-300' : 'text-gray-900',
 									dm
 								)}
 							>
@@ -125,7 +125,7 @@ function Clock() {
 								key={`m_${idx}`}
 								className={tw(
 									'flex justify-center items-center text-4xl mr-2 ml-1 bg-white',
-									time.minute === m ? 'text-red-500' : 'text-gray-900',
+									time.minute === m ? 'text-red-300' : 'text-gray-900',
 									dm
 								)}
 							>
@@ -147,7 +147,7 @@ function Clock() {
 						return (
 							<div
 								key={`s_${idx}`}
-								className={tw('flex justify-center items-center text-xl px-1 bg-white', s % 5 === 0 ? 'text-red-500' : 'text-gray-900', ds)}
+								className={tw('flex justify-center items-center text-xl px-1 bg-white', s % 5 === 0 ? 'text-red-300' : 'text-gray-900', ds)}
 							>
 								{s.toLocaleString('fr', { minimumIntegerDigits: 2 })}
 							</div>
