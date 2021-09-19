@@ -6,6 +6,7 @@ import Home from './pages/home'
 import Todo from './pages/todo'
 import OClock from './pages/clock'
 import Loading from './pages/loading'
+import MiniGames from './pages/minigames'
 import JeopardyApp from './pages/jeopardy'
 import BlackAround from './pages/blackaround'
 
@@ -25,6 +26,7 @@ function App() {
 				<Todo />
 				<JeopardyApp />
 				<OClock />
+				<MiniGames />
 			</div>
 		</React.Suspense>
 	)

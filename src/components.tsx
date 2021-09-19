@@ -67,6 +67,7 @@ export function Canvas({ containerRef, draw, FPS = 60, ...props }: CanvasProps) 
 
 export type MiniCanvasProps = {
 	draw: (ctx: CanvasRenderingContext2D | null, frameCount: number) => void
+	FPS?: number
 } & React.HTMLAttributes<HTMLCanvasElement>
 export function MiniCanvas({ draw, ...props }: MiniCanvasProps) {
 	const { inView, ref } = useObserver({ threshold: 0.5 })
@@ -85,6 +86,34 @@ export function MiniCanvas({ draw, ...props }: MiniCanvasProps) {
 					width: 100px;
 					height: 100px;
 				`
+			)}
+		>
+			<Canvas containerRef={ref} draw={pdraw} {...props} />
+		</div>
+	)
+}
+export type MiniCGamesProps = {
+	draw: (ctx: CanvasRenderingContext2D | null, frameCount: number) => void
+	FPS?: number
+} & React.HTMLAttributes<HTMLCanvasElement>
+export function MiniCGames({ draw, className, ...props }: MiniCanvasProps) {
+	const ref = React.useRef(null)
+	const pdraw = useCallback(
+		(ctx, frameCount) => {
+			if (ref.current) draw(ctx, frameCount)
+		},
+		[draw, ref.current]
+	)
+	return (
+		<div
+			ref={ref}
+			className={tw(
+				'relative',
+				css`
+					width: 100px;
+					height: 100px;
+				`,
+				className
 			)}
 		>
 			<Canvas containerRef={ref} draw={pdraw} {...props} />
