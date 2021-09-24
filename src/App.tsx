@@ -9,6 +9,7 @@ import Loading from './pages/loading'
 import MiniGames from './pages/minigames'
 import JeopardyApp from './pages/jeopardy'
 import BlackAround from './pages/blackaround'
+import ColorMind from './pages/colormind'
 
 const snapper = css`
 	max-height: 100vh;
@@ -27,6 +28,7 @@ function App() {
 				<JeopardyApp />
 				<OClock />
 				<MiniGames />
+				<ColorMind />
 			</div>
 		</React.Suspense>
 	)

@@ -8,7 +8,7 @@ import { MiniCGames } from '../components'
 
 const BLOCK_SIZE = 4
 const gyro = apply(
-	`before:(rounded-lg transition-colors)`,
+	`before:(rounded transition-colors)`,
 	css`
 		position: relative;
 		z-index: 1;
@@ -16,9 +16,9 @@ const gyro = apply(
 			z-index: -1;
 			content: '';
 			position: absolute;
-			top: -20px;
-			width: 25px;
-			height: 25px;
+			top: -10px;
+			width: 15px;
+			height: 15px;
 			right: 15px;
 		}
 	`
