@@ -154,7 +154,7 @@ function Home() {
 						and beginner in Rust
 					</animated.h5>
 					<animated.p style={trail[3]} className={tw(desc)}>
-						Mostly trying stuff, also looking for a remote job.
+						Mostly trying stuff.
 					</animated.p>
 					<animated.div style={trail[4]}>
 						<a target="_blank" className={tw(link)} href="https://twitter.com/wcastand" tabIndex={1} accessKey="t" title="Twitter">
