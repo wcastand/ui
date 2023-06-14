@@ -162,7 +162,7 @@ function Todos() {
 				createdat: new Date().toString(),
 			})
 		} else {
-			for (let v of target.content.value.split(",")) {
+			for (const v of target.content.value.split(",")) {
 				const id = shortid.generate()
 				add(id, {
 					id,

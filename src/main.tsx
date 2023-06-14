@@ -19,6 +19,7 @@ setup({
 		a: apply`text-pink-400 hover:(text-pink-600) transition-colors no-underline`,
 	},
 })
+// rome-ignore lint/style/noNonNullAssertion: <explanation>
 const root = createRoot(document.getElementById("root")!)
 root.render(
 	<StrictMode>

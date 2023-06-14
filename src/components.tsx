@@ -77,14 +77,17 @@ export function Canvas({
 }
 
 export type MiniCanvasProps = {
-	draw: (ctx: CanvasRenderingContext2D | null, frameCount: number) => void
+	draw: (
+		ctx: CanvasRenderingContext2D | null,
+		size: { w: number; h: number },
+	) => void
 	FPS?: number
 } & React.HTMLAttributes<HTMLCanvasElement>
 export function MiniCanvas({ draw, ...props }: MiniCanvasProps) {
 	const { inView, ref } = useObserver({ threshold: 0.5 })
 	const pdraw = useCallback(
-		(ctx, frameCount) => {
-			if (inView && ref.current) draw(ctx, frameCount)
+		(ctx: CanvasRenderingContext2D | null, size: { w: number; h: number }) => {
+			if (inView && ref.current) draw(ctx, size)
 		},
 		[draw, ref, inView],
 	)
@@ -104,14 +107,17 @@ export function MiniCanvas({ draw, ...props }: MiniCanvasProps) {
 	)
 }
 export type MiniCGamesProps = {
-	draw: (ctx: CanvasRenderingContext2D | null, frameCount: number) => void
+	draw: (
+		ctx: CanvasRenderingContext2D | null,
+		size: { w: number; h: number },
+	) => void
 	FPS?: number
 } & React.HTMLAttributes<HTMLCanvasElement>
 export function MiniCGames({ draw, className, ...props }: MiniCanvasProps) {
 	const ref = React.useRef(null)
 	const pdraw = useCallback(
-		(ctx, frameCount) => {
-			if (ref.current) draw(ctx, frameCount)
+		(ctx: CanvasRenderingContext2D | null, size: { w: number; h: number }) => {
+			if (ref.current) draw(ctx, size)
 		},
 		[draw, ref.current],
 	)
@@ -143,6 +149,7 @@ export const SkiDude = ({
 		xmlns="http://www.w3.org/2000/svg"
 		{...props}
 	>
+		<title>Ski dude</title>
 		<path
 			d="m235.945312 245.773438c-3.597656.027343-6.824218-2.207032-8.066406-5.585938-1.246094-3.375-.234375-7.167969 2.519532-9.484375l267.53125-228.648437c3.585937-3.0625 8.976562-2.640626 12.039062.945312 3.0625 3.589844 2.640625 8.980469-.945312 12.042969l-267.53125 228.648437c-1.539063 1.335938-3.507813 2.074219-5.546876 2.082032zm0 0"
 			fill="#919d9e"
@@ -218,6 +225,7 @@ export const RocketIcon = ({
 			height={size ?? "24px"}
 			{...props}
 		>
+			<title>Rocket icon</title>
 			<path
 				fill="#FF5B5B"
 				d="M212.1,325c-0.2,0.2-0.3,0.3-0.5,0.5l-74.4,65.7c-2.8,2.5-6.7,3.4-10.4,2.3c-3.6-1.1-6.4-3.9-7.5-7.6

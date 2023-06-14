@@ -6,7 +6,6 @@ import Home from "./pages/home"
 import Todo from "./pages/todo"
 import OClock from "./pages/clock"
 import Loading from "./pages/loading"
-import MiniGames from "./pages/minigames"
 import BlackAround from "./pages/blackaround"
 import ColorMind from "./pages/colormind"
 
@@ -25,7 +24,6 @@ function App() {
 				<Loading />
 				<Todo />
 				<OClock />
-				<MiniGames />
 				<ColorMind />
 			</div>
 		</React.Suspense>
