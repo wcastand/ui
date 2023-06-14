@@ -1,15 +1,15 @@
-import * as React from 'react'
-import { useRef, useLayoutEffect, useMemo, useCallback, useEffect } from 'react'
-import { animated, useSpring, config } from 'react-spring'
-import { useObserver } from '@alexvcasillas/use-observer'
-import { apply, tw } from 'twind'
-import { css } from 'twind/css'
+import * as React from "react"
+import { useRef, useLayoutEffect, useMemo, useCallback, useEffect } from "react"
+import { animated, useSpring } from "react-spring"
+import { useObserver } from "@alexvcasillas/use-observer"
+import { apply, tw } from "twind"
+import { css } from "twind/css"
 
 export const container = apply(
 	css`
 		scroll-snap-align: start;
 	`,
-	apply`min-h-screen w-screen lg:(p-24) flex`
+	apply`min-h-screen w-screen lg:(p-24) flex`,
 )
 export const section = apply`flex-1 flex flex-col justify-center items-center relative bg-white lg:(rounded)`
 export const image = apply`w-full h-full object-cover`
@@ -17,13 +17,24 @@ export const image = apply`w-full h-full object-cover`
 export type CanvasProps = {
 	containerRef: React.RefObject<HTMLElement>
 	FPS?: number
-	draw: (ctx: CanvasRenderingContext2D | null, size: { w: number; h: number }) => void
+	draw: (
+		ctx: CanvasRenderingContext2D | null,
+		size: { w: number; h: number },
+	) => void
 } & React.HTMLAttributes<HTMLCanvasElement>
 
-export function Canvas({ containerRef, draw, FPS = 60, ...props }: CanvasProps) {
+export function Canvas({
+	containerRef,
+	draw,
+	FPS = 60,
+	...props
+}: CanvasProps) {
 	const ref = useRef<HTMLCanvasElement>(null)
 	const lastFrameTime = useRef(0)
-	const FRAME_MIN_TIME = useMemo(() => (1000 / 60) * (60 / FPS) - (1000 / 60) * 0.5, [FPS])
+	const FRAME_MIN_TIME = useMemo(
+		() => (1000 / 60) * (60 / FPS) - (1000 / 60) * 0.5,
+		[FPS],
+	)
 
 	function resize() {
 		if (ref.current === null || !containerRef.current) return
@@ -37,7 +48,7 @@ export function Canvas({ containerRef, draw, FPS = 60, ...props }: CanvasProps) 
 		if (ref.current === null || !containerRef.current) return
 		resize()
 		const canvas = ref.current
-		const context = canvas.getContext('2d')
+		const context = canvas.getContext("2d")
 		let animationFrameId = 0
 		//Our draw came here
 		const render = (time: number) => {
@@ -58,8 +69,8 @@ export function Canvas({ containerRef, draw, FPS = 60, ...props }: CanvasProps) 
 	}, [draw])
 
 	useLayoutEffect(() => {
-		window.addEventListener('resize', resize)
-		return () => window.removeEventListener('resize', resize)
+		window.addEventListener("resize", resize)
+		return () => window.removeEventListener("resize", resize)
 	}, [])
 
 	return <canvas ref={ref} {...props} />
@@ -75,17 +86,17 @@ export function MiniCanvas({ draw, ...props }: MiniCanvasProps) {
 		(ctx, frameCount) => {
 			if (inView && ref.current) draw(ctx, frameCount)
 		},
-		[draw, ref, inView]
+		[draw, ref, inView],
 	)
 	return (
 		<div
 			ref={ref}
 			className={tw(
-				'relative',
+				"relative",
 				css`
 					width: 100px;
 					height: 100px;
-				`
+				`,
 			)}
 		>
 			<Canvas containerRef={ref} draw={pdraw} {...props} />
@@ -102,18 +113,18 @@ export function MiniCGames({ draw, className, ...props }: MiniCanvasProps) {
 		(ctx, frameCount) => {
 			if (ref.current) draw(ctx, frameCount)
 		},
-		[draw, ref.current]
+		[draw, ref.current],
 	)
 	return (
 		<div
 			ref={ref}
 			className={tw(
-				'relative',
+				"relative",
 				css`
 					width: 100px;
 					height: 100px;
 				`,
-				className
+				className,
 			)}
 		>
 			<Canvas containerRef={ref} draw={pdraw} {...props} />
@@ -121,8 +132,17 @@ export function MiniCGames({ draw, className, ...props }: MiniCanvasProps) {
 	)
 }
 
-export const SkiDude = ({ size, ...props }: { size?: string } & React.HTMLAttributes<HTMLOrSVGElement>) => (
-	<svg height={size ?? '24px'} viewBox="0 0 512.01561 512" width={size ?? '24px'} xmlns="http://www.w3.org/2000/svg" {...props}>
+export const SkiDude = ({
+	size,
+	...props
+}: { size?: string } & React.HTMLAttributes<HTMLOrSVGElement>) => (
+	<svg
+		height={size ?? "24px"}
+		viewBox="0 0 512.01561 512"
+		width={size ?? "24px"}
+		xmlns="http://www.w3.org/2000/svg"
+		{...props}
+	>
 		<path
 			d="m235.945312 245.773438c-3.597656.027343-6.824218-2.207032-8.066406-5.585938-1.246094-3.375-.234375-7.167969 2.519532-9.484375l267.53125-228.648437c3.585937-3.0625 8.976562-2.640626 12.039062.945312 3.0625 3.589844 2.640625 8.980469-.945312 12.042969l-267.53125 228.648437c-1.539063 1.335938-3.507813 2.074219-5.546876 2.082032zm0 0"
 			fill="#919d9e"
@@ -178,15 +198,26 @@ export const SkiDude = ({ size, ...props }: { size?: string } & React.HTMLAttrib
 	</svg>
 )
 
-export const RocketIcon = ({ size, ...props }: { size?: string } & React.HTMLAttributes<HTMLOrSVGElement>) => {
+export const RocketIcon = ({
+	size,
+	...props
+}: { size?: string } & React.HTMLAttributes<HTMLOrSVGElement>) => {
 	const spring = useSpring({
 		loop: true,
 		config: { duration: 400 },
-		to: { transformOrigin: 'center top', transform: 'scale(0.9)' },
-		from: { transformOrigin: 'center top', transform: 'scale(1)' },
+		to: { transformOrigin: "center top", transform: "scale(0.9)" },
+		from: { transformOrigin: "center top", transform: "scale(1)" },
 	})
 	return (
-		<svg version="1.0" x="0px" y="0px" viewBox="0 0 511 511" width={size ?? '24px'} height={size ?? '24px'} {...props}>
+		<svg
+			version="1.0"
+			x="0px"
+			y="0px"
+			viewBox="0 0 511 511"
+			width={size ?? "24px"}
+			height={size ?? "24px"}
+			{...props}
+		>
 			<path
 				fill="#FF5B5B"
 				d="M212.1,325c-0.2,0.2-0.3,0.3-0.5,0.5l-74.4,65.7c-2.8,2.5-6.7,3.4-10.4,2.3c-3.6-1.1-6.4-3.9-7.5-7.6
@@ -247,7 +278,10 @@ export const RocketIcon = ({ size, ...props }: { size?: string } & React.HTMLAtt
 				d="M294.1,363h-37.6l0,121.2l0,0c2.9,0,5.7-1.2,7.8-3.2l0.1-0.1c1.7-1.7,41.4-43.1,41.4-95.4
 	c0-4.2-0.3-8.5-0.8-12.8C304.3,367.2,299.7,363,294.1,363z"
 			/>
-			<path fill="#001035" d="M256.5,327.8V385H318c2.9,0,5.7-1.2,7.8-3.2s3.2-4.9,3.2-7.8l0-46.2L256.5,327.8z" />
+			<path
+				fill="#001035"
+				d="M256.5,327.8V385H318c2.9,0,5.7-1.2,7.8-3.2s3.2-4.9,3.2-7.8l0-46.2L256.5,327.8z"
+			/>
 			<path
 				fill="#1CADB5"
 				d="M256.5,165.3C256.5,165.3,256.5,165.3,256.5,165.3l0,67l0,0c8.9,0,17.4-3.5,23.7-9.8
@@ -259,7 +293,10 @@ export const RocketIcon = ({ size, ...props }: { size?: string } & React.HTMLAtt
 	s-9.8,6.5-15.8,6.5c0,0,0,0,0,0v22l0,0c11.8,0,22.9-4.6,31.3-13c8.4-8.4,13-19.5,13-31.3c0-11.8-4.6-22.9-13-31.3
 	C279.4,159.2,268.3,154.6,256.5,154.6z"
 			/>
-			<path fill="#FF193D" d="M256.5,20.5l0,76.3h59.9c-23.9-43.9-50.9-71.8-52-73C262.3,21.7,259.5,20.5,256.5,20.5z" />
+			<path
+				fill="#FF193D"
+				d="M256.5,20.5l0,76.3h59.9c-23.9-43.9-50.9-71.8-52-73C262.3,21.7,259.5,20.5,256.5,20.5z"
+			/>
 		</svg>
 	)
 }

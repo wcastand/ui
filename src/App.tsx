@@ -1,15 +1,14 @@
-import { tw } from 'twind'
-import * as React from 'react'
-import { css } from 'twind/css'
+import { tw } from "twind"
+import * as React from "react"
+import { css } from "twind/css"
 
-import Home from './pages/home'
-import Todo from './pages/todo'
-import OClock from './pages/clock'
-import Loading from './pages/loading'
-import MiniGames from './pages/minigames'
-import JeopardyApp from './pages/jeopardy'
-import BlackAround from './pages/blackaround'
-import ColorMind from './pages/colormind'
+import Home from "./pages/home"
+import Todo from "./pages/todo"
+import OClock from "./pages/clock"
+import Loading from "./pages/loading"
+import MiniGames from "./pages/minigames"
+import BlackAround from "./pages/blackaround"
+import ColorMind from "./pages/colormind"
 
 const snapper = css`
 	max-height: 100vh;
@@ -19,13 +18,12 @@ const snapper = css`
 
 function App() {
 	return (
-		<React.Suspense fallback={'loading'}>
+		<React.Suspense fallback={"loading"}>
 			<div className={tw(snapper)}>
 				<Home />
 				<BlackAround />
 				<Loading />
 				<Todo />
-				<JeopardyApp />
 				<OClock />
 				<MiniGames />
 				<ColorMind />

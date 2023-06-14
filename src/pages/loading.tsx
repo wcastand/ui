@@ -1,12 +1,17 @@
-import * as React from 'react'
-import { useRef } from 'react'
-import { css } from 'twind/css'
-import { apply, tw } from 'twind'
-import color from 'nice-color-palettes'
-import { animated, useSpring, useSprings } from '@react-spring/web'
+import { useCallback, useRef } from "react"
+import { css } from "twind/css"
+import { apply, tw } from "twind"
+import color from "nice-color-palettes"
+import { animated, useSpring, useSprings } from "@react-spring/web"
 
-import { randomInteger } from '../utils'
-import { container, section, SkiDude, RocketIcon, MiniCanvas } from '../components'
+import { randomInteger } from "../utils"
+import {
+	container,
+	section,
+	SkiDude,
+	RocketIcon,
+	MiniCanvas,
+} from "../components"
 
 const gooey = css`
 	filter: url(#goo);
@@ -29,8 +34,8 @@ function GoeySpinner({ nb = 4, color }: { nb?: number; color?: string }) {
 	const [springs] = useSprings(nb, (index: number) => ({
 		loop: true,
 		config: { duration: getD(index) },
-		transform: 'rotate(360deg)',
-		from: { transform: 'rotate(0deg)' },
+		transform: "rotate(360deg)",
+		from: { transform: "rotate(0deg)" },
 	}))
 
 	return (
@@ -41,7 +46,7 @@ function GoeySpinner({ nb = 4, color }: { nb?: number; color?: string }) {
 					width: 100px;
 					height: 100px;
 				`,
-				gooey
+				gooey,
 			)}
 		>
 			{springs.map((spring, idx) => (
@@ -49,7 +54,7 @@ function GoeySpinner({ nb = 4, color }: { nb?: number; color?: string }) {
 					key={`ball_goey_spinner_${idx}`}
 					style={spring}
 					className={tw(
-						`absolute :after::(bg-${color ?? 'red-500'})`,
+						`absolute :after::(bg-${color ?? "red-500"})`,
 						css`
 							top: 0px;
 							left: 35px;
@@ -65,7 +70,7 @@ function GoeySpinner({ nb = 4, color }: { nb?: number; color?: string }) {
 								height: 24px;
 								border-radius: 100%;
 							}
-						`
+						`,
 					)}
 				/>
 			))}
@@ -79,39 +84,46 @@ const wrapperduo = apply(
 		transform-origin: center center;
 		width: 100px;
 		height: 100px;
-	`
+	`,
 )
 function DuoSpinner({ color }: { color?: string }) {
 	const spring = useSpring({
 		loop: true,
 		config: { duration: 2500 },
-		transform: 'rotate(360deg)',
-		from: { transform: 'rotate(0deg)' },
+		transform: "rotate(360deg)",
+		from: { transform: "rotate(0deg)" },
 	})
 	const spring2 = useSpring({
 		loop: true,
 		config: { duration: 1500 },
-		transform: 'rotate(360deg)',
-		from: { transform: 'rotate(0deg)' },
+		transform: "rotate(360deg)",
+		from: { transform: "rotate(0deg)" },
 	})
 
 	return (
 		<div
 			className={tw(
-				'relative',
+				"relative",
 				css`
 					width: 100px;
 					height: 100px;
-				`
+				`,
 			)}
 		>
 			<animated.div style={spring} className={tw(wrapperduo, gooey)}>
-				<div className={tw(`bg-${color ?? 'red-500'} rounded-full m-1 w-8 h-8`)} />
-				<div className={tw(`bg-${color ?? 'red-500'} rounded-full m-1 w-8 h-8`)} />
+				<div
+					className={tw(`bg-${color ?? "red-500"} rounded-full m-1 w-8 h-8`)}
+				/>
+				<div
+					className={tw(`bg-${color ?? "red-500"} rounded-full m-1 w-8 h-8`)}
+				/>
 			</animated.div>
-			<animated.div style={spring2} className={tw(wrapperduo, gooey, 'justify-around')}>
-				<div className={tw(`bg-${color ?? 'red-500'} rounded-full w-6 h-6`)} />
-				<div className={tw(`bg-${color ?? 'red-500'} rounded-full w-6 h-6`)} />
+			<animated.div
+				style={spring2}
+				className={tw(wrapperduo, gooey, "justify-around")}
+			>
+				<div className={tw(`bg-${color ?? "red-500"} rounded-full w-6 h-6`)} />
+				<div className={tw(`bg-${color ?? "red-500"} rounded-full w-6 h-6`)} />
 			</animated.div>
 		</div>
 	)
@@ -123,15 +135,19 @@ const tree = apply(css`
 	clip-path: polygon(50% 0%, 5% 100%, 95% 100%);
 `)
 
-const Tree = ({ scale, color, tx }: { tx?: number; color?: string; scale?: number }) => (
+const Tree = ({
+	scale,
+	color,
+	tx,
+}: { tx?: number; color?: string; scale?: number }) => (
 	<div
 		className={tw(
-			`absolute bottom-0 bg-${color ?? 'red-500'}`,
+			`absolute bottom-0 bg-${color ?? "red-500"}`,
 			tree,
 			css`
 				transform-origin: bottom center;
 				transform: translateX(${tx ?? 0}px) scale(${scale ?? 1});
-			`
+			`,
 		)}
 	/>
 )
@@ -140,39 +156,41 @@ function GoingUp() {
 	const springT = useSpring({
 		loop: true,
 		config: { duration: 1800 },
-		to: { transform: 'translateX(-100px)' },
-		from: { transform: 'translateX(100px) ' },
+		to: { transform: "translateX(-100px)" },
+		from: { transform: "translateX(100px) " },
 	})
 	return (
 		<div
 			className={tw(
-				'relative w-full h-full overflow-hidden -skew-y-12',
+				"relative w-full h-full overflow-hidden -skew-y-12",
 				css`
 					width: 100px;
 					height: 100px;
-				`
+				`,
 			)}
 		>
-			<div className={tw(`absolute w-full h-1 bottom-0 left-0 bg-yellow-200`)} />
-			<animated.div style={springT} className={tw('absolute bottom-1')}>
-				<Tree color={'green-200'} />
-				<Tree scale={0.7} tx={10} color={'green-400'} />
-				<Tree scale={0.5} tx={5} color={'green-700'} />
+			<div
+				className={tw(`absolute w-full h-1 bottom-0 left-0 bg-yellow-200`)}
+			/>
+			<animated.div style={springT} className={tw("absolute bottom-1")}>
+				<Tree color={"green-200"} />
+				<Tree scale={0.7} tx={10} color={"green-400"} />
+				<Tree scale={0.5} tx={5} color={"green-700"} />
 			</animated.div>
 			<div
 				className={tw(
-					'absolute w-full bg-gray-400',
+					"absolute w-full bg-gray-400",
 					css`
 						top: 64px;
 						height: 2px;
-					`
+					`,
 				)}
 			/>
-			<SkiDude className={tw('absolute bottom-1 left-8')} size="32px" />
-			<animated.div style={springT} className={tw('absolute bottom-1')}>
-				<Tree scale={1.1} tx={80} color={'green-400'} />
-				<Tree scale={0.4} tx={75} color={'green-200'} />
-				<Tree scale={0.6} tx={55} color={'green-700'} />
+			<SkiDude className={tw("absolute bottom-1 left-8")} size="32px" />
+			<animated.div style={springT} className={tw("absolute bottom-1")}>
+				<Tree scale={1.1} tx={80} color={"green-400"} />
+				<Tree scale={0.4} tx={75} color={"green-200"} />
+				<Tree scale={0.6} tx={55} color={"green-700"} />
 			</animated.div>
 		</div>
 	)
@@ -181,14 +199,14 @@ function GoingUp() {
 const Star = ({ className, x, y, ...props }: any) => (
 	<animated.div
 		className={tw(
-			'absolute bg-yellow-300',
+			"absolute bg-yellow-300",
 			css`
 				width: 4px;
 				height: 4px;
 				top: ${y ?? 0}px;
 				left: ${x ?? 0}px;
 			`,
-			className
+			className,
 		)}
 		{...props}
 	/>
@@ -198,34 +216,39 @@ function Space() {
 	const [stars] = useSprings(8, (idx) => ({
 		loop: true,
 		config: { duration: (idx + 3) * 400 },
-		to: { transform: 'translateY(100px) rotate(45deg)' },
-		from: { transform: 'translateY(-100px) rotate(45deg)' },
+		to: { transform: "translateY(100px) rotate(45deg)" },
+		from: { transform: "translateY(-100px) rotate(45deg)" },
 	}))
 	return (
 		<div
 			className={tw(
-				'relative',
+				"relative",
 				css`
 					width: 100px;
 					height: 100px;
 					background: linear-gradient(0deg, #1d4ed8, #312e81);
 					clip-path: url(#blob);
-				`
+				`,
 			)}
 		>
-			<animated.div className={tw('absolute h-full w-full')}>
+			<animated.div className={tw("absolute h-full w-full")}>
 				{stars.map((star, idx) => (
-					<Star key={`star_${idx}`} x={randomInteger(10, 90)} y={0} style={star} />
+					<Star
+						key={`star_${idx}`}
+						x={randomInteger(10, 90)}
+						y={0}
+						style={star}
+					/>
 				))}
 			</animated.div>
 			<RocketIcon
 				size="32px"
 				className={tw(
-					'z-10 absolute',
+					"z-10 absolute",
 					css`
 						top: calc(50% - 12px);
 						left: calc(50% - 8px);
-					`
+					`,
 				)}
 			/>
 		</div>
@@ -233,9 +256,13 @@ function Space() {
 }
 
 function FillingCube() {
-	const state = useRef({ x: 0, y: 0, color: color[randomInteger(0, color.length - 1)][randomInteger(0, 5)] })
+	const state = useRef({
+		x: 0,
+		y: 0,
+		color: color[randomInteger(0, color.length - 1)][randomInteger(0, 5)],
+	})
 
-	const draw = React.useCallback(
+	const draw = useCallback(
 		(ctx) => {
 			if (state.current === null) return
 			ctx.fillStyle = state.current.color
@@ -245,10 +272,14 @@ function FillingCube() {
 				state.current.x = 0
 				state.current.y += 10
 			} else {
-				state.current = { x: 0, y: 0, color: color[randomInteger(0, color.length - 1)][randomInteger(0, 5)] }
+				state.current = {
+					x: 0,
+					y: 0,
+					color: color[randomInteger(0, color.length - 1)][randomInteger(0, 5)],
+				}
 			}
 		},
-		[state]
+		[state],
 	)
 	return <MiniCanvas draw={draw} />
 }
@@ -257,7 +288,11 @@ function Loading() {
 	return (
 		<div className={tw(container)} id="loading">
 			<div className={tw(section)}>
-				<div className={tw('flex-1 w-full flex flex-wrap gap-4 justify-center items-center')}>
+				<div
+					className={tw(
+						"flex-1 w-full flex flex-wrap gap-4 justify-center items-center",
+					)}
+				>
 					<GoeySpinner />
 					<DuoSpinner color="green-300" />
 					<GoingUp />
@@ -265,22 +300,39 @@ function Loading() {
 					<FillingCube />
 				</div>
 
-				<div className={tw('absolute bottom-2 left-2 text-xs')}>
-					Icons made by{' '}
-					<a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">
+				<div className={tw("absolute bottom-2 left-2 text-xs")}>
+					Icons made by{" "}
+					<a
+						href="https://www.flaticon.com/authors/smashicons"
+						title="Smashicons"
+					>
 						Smashicons
-					</a>{' '}
-					from{' '}
+					</a>{" "}
+					from{" "}
 					<a href="https://www.flaticon.com/" title="Flaticon">
 						www.flaticon.com
 					</a>
 				</div>
 			</div>
-			<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width={0} height={0}>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				version="1.1"
+				width={0}
+				height={0}
+			>
 				<defs>
 					<filter id="goo">
-						<feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
-						<feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
+						<feGaussianBlur
+							in="SourceGraphic"
+							stdDeviation="10"
+							result="blur"
+						/>
+						<feColorMatrix
+							in="blur"
+							mode="matrix"
+							values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"
+							result="goo"
+						/>
 						<feBlend in="SourceGraphic" in2="goo" />
 					</filter>
 					<clipPath id="blob">

@@ -1,10 +1,10 @@
-import create from 'zustand'
-import * as React from 'react'
-import { css } from 'twind/css'
-import { tw, apply } from 'twind'
+import { create } from "zustand"
+import { css } from "twind/css"
+import { tw, apply } from "twind"
 
-import { randomInteger } from '../utils'
-import { MiniCGames } from '../components'
+import { randomInteger } from "../utils"
+import { MiniCGames } from "../components"
+import { useEffect } from "react"
 
 const GRAVITY = 0.89
 const FLAPPY_SIZE = 8
@@ -12,7 +12,7 @@ const title = apply(
 	`text-white`,
 	css`
 		font-family: 'Courier New', Courier, monospace;
-	`
+	`,
 )
 const gyro = apply(
 	`before:(rounded transition-colors)`,
@@ -28,7 +28,7 @@ const gyro = apply(
 			height: 15px;
 			right: 15px;
 		}
-	`
+	`,
 )
 
 type Block = { x: number; y: number; gap: number; width: number }
@@ -58,9 +58,9 @@ const useStore = create<State>((set, get) => ({
 	keydown: (event: KeyboardEvent) => {
 		if (!get().focused) return
 		switch (event.key) {
-			case 'ArrowUp':
-			case 'w':
-			case ' ':
+			case "ArrowUp":
+			case "w":
+			case " ":
 				if (get().velocity > -4) set((s) => ({ velocity: s.velocity - 4 }))
 				break
 		}
@@ -68,7 +68,7 @@ const useStore = create<State>((set, get) => ({
 	createBlock: () => {
 		let id: NodeJS.Timeout
 		id = setTimeout(() => {
-			if (document.visibilityState === 'visible')
+			if (document.visibilityState === "visible")
 				set((s) => ({
 					blocks: [
 						...s.blocks,
@@ -98,7 +98,7 @@ const useStore = create<State>((set, get) => ({
 	draw: (ctx) => {
 		if (ctx === null) return
 		// update if game is focused
-		if (get().focused && document.visibilityState === 'visible') {
+		if (get().focused && document.visibilityState === "visible") {
 			const blocks: Block[] = []
 			for (let block of get().blocks) {
 				if (block.x + block.width >= 0) {
@@ -114,22 +114,34 @@ const useStore = create<State>((set, get) => ({
 			// collision
 			const player = get().y
 			for (let block of get().blocks) {
-				if (block.x < 25 + FLAPPY_SIZE && block.x + block.width > 25 + FLAPPY_SIZE) {
-					if (player < block.y - block.gap / 2 || player + FLAPPY_SIZE > block.y + block.gap / 2) get().reset()
+				if (
+					block.x < 25 + FLAPPY_SIZE &&
+					block.x + block.width > 25 + FLAPPY_SIZE
+				) {
+					if (
+						player < block.y - block.gap / 2 ||
+						player + FLAPPY_SIZE > block.y + block.gap / 2
+					)
+						get().reset()
 				}
 			}
 		}
 
 		// Draw stuff
 		ctx.clearRect(0, 0, 100, 100)
-		ctx.fillStyle = 'black'
+		ctx.fillStyle = "black"
 		ctx.fillRect(0, 0, 100, 100)
 
-		ctx.fillStyle = 'white'
+		ctx.fillStyle = "white"
 		// draw blocks
 		for (let block of get().blocks) {
 			ctx.fillRect(block.x, 0, block.width, block.y - block.gap / 2)
-			ctx.fillRect(block.x, block.y + block.gap / 2, block.width, 100 - block.y + block.gap / 2)
+			ctx.fillRect(
+				block.x,
+				block.y + block.gap / 2,
+				block.width,
+				100 - block.y + block.gap / 2,
+			)
 		}
 
 		// draw flappy cube
@@ -140,64 +152,85 @@ const useStore = create<State>((set, get) => ({
 function Flappy({ focused }: { focused: boolean }) {
 	const state = useStore()
 
-	React.useEffect(() => {
+	useEffect(() => {
 		state.setF(focused)
 	}, [focused])
 
-	React.useEffect(() => {
-		document.addEventListener('keydown', state.keydown)
-		return () => document.removeEventListener('keydown', state.keydown)
+	useEffect(() => {
+		document.addEventListener("keydown", state.keydown)
+		return () => document.removeEventListener("keydown", state.keydown)
 	}, [state.keydown])
 
-	React.useEffect(() => {
+	useEffect(() => {
 		state.createBlock()
 	}, [])
 
 	return (
 		<div
 			className={tw(
-				'flex flex-col justify-center items-center rounded gap-0 cursor-pointer',
+				"flex flex-col justify-center items-center rounded gap-0 cursor-pointer",
 				gyro,
-				focused ? 'before:(bg-green-500)' : 'before:(bg-red-500)'
+				focused ? "before:(bg-green-500)" : "before:(bg-red-500)",
 			)}
 		>
-			<div className={tw(title, 'bg-gradient-to-b from-green-400 to-green-600 text-white flex-1 w-full font-bold text-center text-lg')}>
+			<div
+				className={tw(
+					title,
+					"bg-gradient-to-b from-green-400 to-green-600 text-white flex-1 w-full font-bold text-center text-lg",
+				)}
+			>
 				Flappy
 			</div>
 			<div
 				className={tw(
-					'p-0 m-0 flex flex-row w-full justify-end bg-black',
-					'border-2 border-b-0 border-green-600',
+					"p-0 m-0 flex flex-row w-full justify-end bg-black",
+					"border-2 border-b-0 border-green-600",
 					css`
 						width: 104px;
 						font-size: 0.7rem;
-					`
+					`,
 				)}
 			>
-				<span className={tw(title, 'flex-1 pl-1 text-left')}>Score:{state.score}</span>
+				<span className={tw(title, "flex-1 pl-1 text-left")}>
+					Score:{state.score}
+				</span>
 			</div>
-			<div className={tw('border-2 border-t-0 border-b-0 border-green-600')}>
+			<div className={tw("border-2 border-t-0 border-b-0 border-green-600")}>
 				<MiniCGames draw={state.draw} FPS={12} />
 			</div>
 			<div
 				className={tw(
-					'p-0 m-0 flex flex-row w-full items-center justify-center bg-black',
-					'border-2 border-t-0 border-green-600',
+					"p-0 m-0 flex flex-row w-full items-center justify-center bg-black",
+					"border-2 border-t-0 border-green-600",
 					css`
 						width: 104px;
 						font-size: 0.7rem;
-					`
+					`,
 				)}
 			>
-				<span className={tw(title, 'flex-1 pr-1 text-right')}>Best:{state.best}</span>
+				<span className={tw(title, "flex-1 pr-1 text-right")}>
+					Best:{state.best}
+				</span>
 			</div>
-			<div className={tw('relative w-full h-8 bg-gradient-to-b from-green-400 to-green-600')}>
-				<div className={tw('absolute top-2 left-5')}>
-					<div className={tw('absolute top-0 left-1 bg-gray-800 h-3 w-1')} />
-					<div className={tw('absolute top-1 left-0 bg-gray-800 h-1 w-3')} />
+			<div
+				className={tw(
+					"relative w-full h-8 bg-gradient-to-b from-green-400 to-green-600",
+				)}
+			>
+				<div className={tw("absolute top-2 left-5")}>
+					<div className={tw("absolute top-0 left-1 bg-gray-800 h-3 w-1")} />
+					<div className={tw("absolute top-1 left-0 bg-gray-800 h-1 w-3")} />
 				</div>
-				<div className={tw('absolute right-7 top-4 rounded-full bg-gray-800 w-2 h-2')} />
-				<div className={tw('absolute right-4 top-3 rounded-full bg-gray-800 w-2 h-2')} />
+				<div
+					className={tw(
+						"absolute right-7 top-4 rounded-full bg-gray-800 w-2 h-2",
+					)}
+				/>
+				<div
+					className={tw(
+						"absolute right-4 top-3 rounded-full bg-gray-800 w-2 h-2",
+					)}
+				/>
 			</div>
 		</div>
 	)

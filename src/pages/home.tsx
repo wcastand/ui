@@ -1,19 +1,19 @@
-import create from 'zustand'
-import { apply, tw } from 'twind'
-import shallow from 'zustand/shallow'
-import React, { useLayoutEffect, useEffect } from 'react'
-import { useObserver } from '@alexvcasillas/use-observer'
-import { useTrail, animated, config } from 'react-spring'
-import { TiMediaPlay, TiMediaPause } from 'react-icons/ti'
+import { create } from "zustand"
+import { apply, tw } from "twind"
+import { shallow } from "zustand/shallow"
+import { useLayoutEffect, useEffect } from "react"
+import { useObserver } from "@alexvcasillas/use-observer"
+import { useTrail, animated, config } from "react-spring"
+import { TiMediaPlay, TiMediaPause } from "react-icons/ti"
 
-import { randomInteger } from '../utils'
-import { container, section, Canvas } from '../components'
+import { randomInteger } from "../utils"
+import { container, section, Canvas } from "../components"
 
 const welcome = apply`text-2xl font-normal`
 const name = apply`text-6xl font-bold`
 const job = apply`text-4xl font-normal`
 const plus = apply`text-xl font-normal`
-const desc = apply`text-vase font-light`
+const desc = apply`text-gray-200 font-light`
 const link = apply`px-4 first:pl-0 last:pr-0`
 const btn = apply`px-2 py-1 text-base text-gray-400 hover:(text-gray-900) transition-colors text-center flex justify-center items-center`
 
@@ -25,12 +25,21 @@ type State = {
 	toggle: (p?: boolean) => void
 	init: (w: number, h: number) => void
 	tick: (state: boolean[], x: number, y: number) => boolean[]
-	draw: (ctx: CanvasRenderingContext2D | null, { w, h }: { w: number; h: number }) => void
+	draw: (
+		ctx: CanvasRenderingContext2D | null,
+		{ w, h }: { w: number; h: number },
+	) => void
 }
 
-function getNeighbours(state: boolean[], x: number, y: number, width: number): number {
+function getNeighbours(
+	state: boolean[],
+	x: number,
+	y: number,
+	width: number,
+): number {
 	let nb = 0
-	for (let i = -1; i <= 1; i++) for (let j = -1; j <= 1; j++) if (state[width * (x + j) + (y + i)]) nb++
+	for (let i = -1; i <= 1; i++)
+		for (let j = -1; j <= 1; j++) if (state[width * (x + j) + (y + i)]) nb++
 	return nb
 }
 
@@ -61,7 +70,8 @@ const useStore = create<State>((set, get) => ({
 				const cell = state[index]
 				const alivedNeighbours = getNeighbours(state, i, j, x)
 				if (cell) {
-					if (alivedNeighbours === 3 || alivedNeighbours === 4) newState[index] = true
+					if (alivedNeighbours === 3 || alivedNeighbours === 4)
+						newState[index] = true
 					else newState[index] = false
 				} else {
 					if (alivedNeighbours === 3) newState[index] = true
@@ -70,7 +80,10 @@ const useStore = create<State>((set, get) => ({
 			}
 		return newState
 	},
-	draw: (ctx: CanvasRenderingContext2D | null, { w, h }: { w: number; h: number }) => {
+	draw: (
+		ctx: CanvasRenderingContext2D | null,
+		{ w, h }: { w: number; h: number },
+	) => {
 		if (ctx === null) return
 		const isPlaying = get().playing
 		if (!isPlaying) return
@@ -82,7 +95,7 @@ const useStore = create<State>((set, get) => ({
 		const newState = tick(state, x, y)
 
 		ctx.clearRect(0, 0, w, h)
-		ctx.fillStyle = '#f1f1f1'
+		ctx.fillStyle = "#f1f1f1"
 		for (let i = 0; i < y; i++)
 			for (let j = 0; j < x; j++) {
 				const cell = newState[x * i + j]
@@ -94,11 +107,14 @@ const useStore = create<State>((set, get) => ({
 
 const isPlayingSelector = (s: State) => s.playing
 const selector = (
-	s: State
+	s: State,
 ): [
 	(w: number, h: number) => void,
 	(p?: boolean) => void,
-	(ctx: CanvasRenderingContext2D | null, { w, h }: { w: number; h: number }) => void
+	(
+		ctx: CanvasRenderingContext2D | null,
+		{ w, h }: { w: number; h: number },
+	) => void,
 ] => [s.init, s.toggle, s.draw]
 
 function Home() {
@@ -110,8 +126,8 @@ function Home() {
 		delay: 500,
 		config: config.gentle,
 		opacity: 1,
-		transform: 'translateY(0px)',
-		from: { opacity: 0, transform: 'translateY(30px)' },
+		transform: "translateY(0px)",
+		from: { opacity: 0, transform: "translateY(30px)" },
 	})
 
 	function reset() {
@@ -124,15 +140,24 @@ function Home() {
 		reset()
 	}, [])
 	useLayoutEffect(() => {
-		window.addEventListener('resize', reset)
-		return () => window.removeEventListener('resize', reset)
+		window.addEventListener("resize", reset)
+		return () => window.removeEventListener("resize", reset)
 	}, [])
 
 	return (
 		<section className={tw(container)} id="home">
 			<div ref={ref} className={tw(section)}>
-				<Canvas containerRef={ref} draw={draw} FPS={12} className={tw('z-0 absolute top-0 left-0')} />
-				<div className={tw('absolute top-2 right-2 z-10 flex flex-row justify-center items-center gap-1')}>
+				<Canvas
+					containerRef={ref}
+					draw={draw}
+					FPS={12}
+					className={tw("z-0 absolute top-0 left-0")}
+				/>
+				<div
+					className={tw(
+						"absolute top-2 right-2 z-10 flex flex-row justify-center items-center gap-1",
+					)}
+				>
 					<button className={tw(btn)} onClick={reset}>
 						reset
 					</button>
@@ -140,7 +165,11 @@ function Home() {
 						{isPlaying ? <TiMediaPause size={20} /> : <TiMediaPlay size={20} />}
 					</button>
 				</div>
-				<div className={tw('flex-1 flex flex-col justify-center items-start z-10 px-2')}>
+				<div
+					className={tw(
+						"flex-1 flex flex-col justify-center items-start z-10 px-2",
+					)}
+				>
 					<animated.span style={trail[0]} className={tw(welcome)}>
 						Hi, I'm
 					</animated.span>
@@ -157,11 +186,25 @@ function Home() {
 						Mostly trying stuff.
 					</animated.p>
 					<animated.div style={trail[4]}>
-						<a target="_blank" className={tw(link)} href="https://twitter.com/wcastand" tabIndex={1} accessKey="t" title="Twitter">
+						<a
+							target="_blank"
+							className={tw(link)}
+							href="https://twitter.com/wcastand"
+							tabIndex={1}
+							accessKey="t"
+							title="Twitter"
+						>
 							Twitter
 						</a>
 						-
-						<a target="_blank" className={tw(link)} href="https://github.com/wcastand" tabIndex={2} accessKey="g" title="Github">
+						<a
+							target="_blank"
+							className={tw(link)}
+							href="https://github.com/wcastand"
+							tabIndex={2}
+							accessKey="g"
+							title="Github"
+						>
 							Github
 						</a>
 						-

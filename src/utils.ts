@@ -5,7 +5,7 @@ export function randomInteger(min: number, max: number): number {
 export function fromNow(
 	date: Date | number | string,
 	nowDate: Date | number | string = Date.now(),
-	rft = new Intl.RelativeTimeFormat(undefined, { numeric: 'auto' })
+	rft = new Intl.RelativeTimeFormat(undefined, { numeric: "auto" }),
 ) {
 	const SECOND = 1000
 	const MINUTE = 60 * SECOND
@@ -15,28 +15,45 @@ export function fromNow(
 	const MONTH = 30 * DAY
 	const YEAR = 365 * DAY
 	const intervals = [
-		{ ge: YEAR, divisor: YEAR, unit: 'year' },
-		{ ge: MONTH, divisor: MONTH, unit: 'month' },
-		{ ge: WEEK, divisor: WEEK, unit: 'week' },
-		{ ge: DAY, divisor: DAY, unit: 'day' },
-		{ ge: HOUR, divisor: HOUR, unit: 'hour' },
-		{ ge: MINUTE, divisor: MINUTE, unit: 'minute' },
-		{ ge: 30 * SECOND, divisor: SECOND, unit: 'seconds' },
-		{ ge: 0, divisor: 1, text: 'just now' },
+		{ ge: YEAR, divisor: YEAR, unit: "year" },
+		{ ge: MONTH, divisor: MONTH, unit: "month" },
+		{ ge: WEEK, divisor: WEEK, unit: "week" },
+		{ ge: DAY, divisor: DAY, unit: "day" },
+		{ ge: HOUR, divisor: HOUR, unit: "hour" },
+		{ ge: MINUTE, divisor: MINUTE, unit: "minute" },
+		{ ge: 30 * SECOND, divisor: SECOND, unit: "seconds" },
+		{ ge: 0, divisor: 1, text: "just now" },
 	]
-	const now = typeof nowDate === 'object' ? nowDate.getTime() : new Date(nowDate).getTime()
-	const diff = now - (typeof date === 'object' ? date : new Date(date)).getTime()
+	const now =
+		typeof nowDate === "object"
+			? nowDate.getTime()
+			: new Date(nowDate).getTime()
+	const diff =
+		now - (typeof date === "object" ? date : new Date(date)).getTime()
 	const diffAbs = Math.abs(diff)
 	for (const interval of intervals) {
 		if (diffAbs >= interval.ge) {
 			const x = Math.round(Math.abs(diff) / interval.divisor)
 			const isFuture = diff < 0
-			return interval.unit ? rft.format(isFuture ? x : -x, interval.unit as Intl.RelativeTimeFormatUnit) : interval.text
+			return interval.unit
+				? rft.format(
+						isFuture ? x : -x,
+						interval.unit as Intl.RelativeTimeFormatUnit,
+				  )
+				: interval.text
 		}
 	}
 }
 
 export const lerp = (x: number, y: number, a: number) => x * (1 - a) + y * a
-export const invlerp = (x: number, y: number, a: number) => clamp((a - x) / (y - x))
-export const clamp = (a: number, min = 0, max = 1) => Math.min(max, Math.max(min, a))
-export const range = (x1: number, y1: number, x2: number, y2: number, a: number) => lerp(x2, y2, invlerp(x1, y1, a))
+export const invlerp = (x: number, y: number, a: number) =>
+	clamp((a - x) / (y - x))
+export const clamp = (a: number, min = 0, max = 1) =>
+	Math.min(max, Math.max(min, a))
+export const range = (
+	x1: number,
+	y1: number,
+	x2: number,
+	y2: number,
+	a: number,
+) => lerp(x2, y2, invlerp(x1, y1, a))
