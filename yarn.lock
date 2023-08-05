@@ -1033,13 +1033,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vercel/analytics@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "@vercel/analytics@npm:1.0.1"
-  checksum: 6876e1d0868e85198d43a17ffec7266cdee5a53d5fc797d3f7e0d64e9d76a2ade3cbdcbc0a665e2ee2389f65dfc80591f7d667e9fc981cdbaa848006cbaefe19
-  languageName: node
-  linkType: hard
-
 "@vercel/build-utils@npm:6.8.2":
   version: 6.8.2
   resolution: "@vercel/build-utils@npm:6.8.2"
@@ -3766,7 +3759,6 @@ __metadata:
     "@js-temporal/polyfill": ^0.4.4
     "@types/react": ^18.2.18
     "@types/react-dom": ^18.2.7
-    "@vercel/analytics": ^1.0.1
     "@vercel/node": ^2.15.8
     "@vitejs/plugin-react": ^4.0.4
     immer: ^10.0.2

@@ -8,7 +8,6 @@
 	"dependencies": {
 		"@alexvcasillas/use-observer": "^1.1.2",
 		"@js-temporal/polyfill": "^0.4.4",
-		"@vercel/analytics": "^1.0.1",
 		"@vercel/node": "^2.15.8",
 		"immer": "^10.0.2",
 		"isomorphic-unfetch": "^4.0.2",

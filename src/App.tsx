@@ -9,10 +9,6 @@ import Loading from "./pages/loading"
 import BlackAround from "./pages/blackaround"
 import ColorMind from "./pages/colormind"
 
-import { inject } from "@vercel/analytics"
-
-inject()
-
 const snapper = css`
 	max-height: 100vh;
 	overflow-y: scroll;
