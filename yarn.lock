@@ -1033,20 +1033,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/shortid@npm:^0.0.29":
-  version: 0.0.29
-  resolution: "@types/shortid@npm:0.0.29"
-  checksum: 06d940fabc5774ff2221da6ba3496cef97ae7c2f7f0fee4740144a68cf2b630b109db2f934133096daa58045e4e7aaffba687934166bb0b2b0d5c52679b10d08
-  languageName: node
-  linkType: hard
-
-"@types/string-similarity@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "@types/string-similarity@npm:4.0.0"
-  checksum: e530b8c1254ae3318662baaa71e5d42938c900dd6d3486a358f188dfe0d6f14c2342ad48f363db9851230ab51e17460de7a6569038c022815ade6d4bbe78f46f
-  languageName: node
-  linkType: hard
-
 "@vercel/analytics@npm:^1.0.1":
   version: 1.0.1
   resolution: "@vercel/analytics@npm:1.0.1"
@@ -3244,19 +3230,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nanoid@npm:^2.1.0":
-  version: 2.1.11
-  resolution: "nanoid@npm:2.1.11"
-  checksum: 18cd14386816873849787eb4e65667021bfdeb019a8f14c74287c23594c67b7c0e8f42c7d69f6aedf05cd3d100f1ddc41184f9f9b6b17fbaea1c3ee3f0704eec
-  languageName: node
-  linkType: hard
-
 "nanoid@npm:^3.3.6":
   version: 3.3.6
   resolution: "nanoid@npm:3.3.6"
   bin:
     nanoid: bin/nanoid.cjs
   checksum: 7d0eda657002738aa5206107bd0580aead6c95c460ef1bdd0b1a87a9c7ae6277ac2e9b945306aaa5b32c6dcb7feaf462d0f552e7f8b5718abfc6ead5c94a71b3
+  languageName: node
+  linkType: hard
+
+"nanoid@npm:^4.0.2":
+  version: 4.0.2
+  resolution: "nanoid@npm:4.0.2"
+  bin:
+    nanoid: bin/nanoid.js
+  checksum: 747c399cea4664dd0be1d0ec498ffd1ef8f1f5221676fc8b577e3f46f66d9afcddb9595d63d19a2e78d0bc6cc33984f65e66bf1682c850b9e26288883d96b53f
   languageName: node
   linkType: hard
 
@@ -3778,13 +3766,12 @@ __metadata:
     "@js-temporal/polyfill": ^0.4.4
     "@types/react": ^18.2.18
     "@types/react-dom": ^18.2.7
-    "@types/shortid": ^0.0.29
-    "@types/string-similarity": ^4.0.0
     "@vercel/analytics": ^1.0.1
     "@vercel/node": ^2.15.8
     "@vitejs/plugin-react": ^4.0.4
     immer: ^10.0.2
     isomorphic-unfetch: ^4.0.2
+    nanoid: ^4.0.2
     nice-color-palettes: ^3.0.0
     react: ^18.2.0
     react-dom: ^18.2.0
@@ -3792,8 +3779,6 @@ __metadata:
     react-icons: ^4.10.1
     react-spring: ^9.7.2
     rome: ^12.1.3
-    shortid: ^2.2.16
-    string-similarity: ^4.0.4
     twind: ^0.16.19
     typescript: ^5.1.6
     vite: ^4.4.8
@@ -3917,15 +3902,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"shortid@npm:^2.2.16":
-  version: 2.2.16
-  resolution: "shortid@npm:2.2.16"
-  dependencies:
-    nanoid: ^2.1.0
-  checksum: 0790ce22fe20aacc226915160da178b5a6af7814d1796404684f6699b60f77e291d39ad3b6b2b4c6efcf5553e1deeee7e29a48b8f46955de1425e67ab934e309
-  languageName: node
-  linkType: hard
-
 "side-channel@npm:^1.0.4":
   version: 1.0.4
   resolution: "side-channel@npm:1.0.4"
@@ -4010,13 +3986,6 @@ __metadata:
   dependencies:
     duplexer: ~0.1.1
   checksum: 844b622cfe8b9de45a6007404f613b60aaf85200ab9862299066204242f89a7c8033b1c356c998aa6cfc630f6cd9eba119ec1c6dc1f93e245982be4a847aee7d
-  languageName: node
-  linkType: hard
-
-"string-similarity@npm:^4.0.4":
-  version: 4.0.4
-  resolution: "string-similarity@npm:4.0.4"
-  checksum: 797b41b24e1eb6b3b0ab896950b58c295a19a82933479c75f7b5279ffb63e0b456a8c8d10329c02f607ca1a50370e961e83d552aa468ff3b0fa15809abc9eff7
   languageName: node
   linkType: hard
 

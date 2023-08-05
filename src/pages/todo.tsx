@@ -1,6 +1,6 @@
 import { useMemo } from "react"
 import { create } from "zustand"
-import shortid from "shortid"
+import { nanoid } from "nanoid"
 import { css } from "twind/css"
 import { apply, tw } from "twind"
 import { shallow } from "zustand/shallow"
@@ -155,7 +155,7 @@ function Todos() {
 		}
 
 		if (target.content.value.split(",").length === 1) {
-			const id = shortid.generate()
+			const id = nanoid()
 			add(id, {
 				id,
 				content: target.content.value,
@@ -164,7 +164,7 @@ function Todos() {
 			})
 		} else {
 			for (const v of target.content.value.split(",")) {
-				const id = shortid.generate()
+				const id = nanoid()
 				add(id, {
 					id,
 					content: v.trim(),
