@@ -973,6 +973,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@vercel/analytics@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "@vercel/analytics@npm:1.0.1"
+  checksum: 6876e1d0868e85198d43a17ffec7266cdee5a53d5fc797d3f7e0d64e9d76a2ade3cbdcbc0a665e2ee2389f65dfc80591f7d667e9fc981cdbaa848006cbaefe19
+  languageName: node
+  linkType: hard
+
 "@vercel/build-utils@npm:6.7.5":
   version: 6.7.5
   resolution: "@vercel/build-utils@npm:6.7.5"
@@ -3220,6 +3227,7 @@ __metadata:
     "@types/react-dom": ^18.2.5
     "@types/shortid": ^0.0.29
     "@types/string-similarity": ^4.0.0
+    "@vercel/analytics": ^1.0.1
     "@vercel/node": ^2.15.1
     "@vitejs/plugin-react": ^4.0.0
     immer: ^10.0.2
