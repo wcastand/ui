@@ -115,7 +115,11 @@ function ColorMind() {
 								"flex flex-col justify-around items-center md:(flex-row justify-between)",
 							)}
 						>
-							<button className={tw("px-4")} onClick={() => store.reroll()}>
+							<button
+								className={tw("px-4")}
+								onClick={() => store.reroll()}
+								type="button"
+							>
 								<FiRefreshCw
 									className={tw("transition-all rotate-0 hover:(rotate-180)")}
 								/>
@@ -133,6 +137,7 @@ function ColorMind() {
 							</div>
 						</div>
 						<button
+							type="button"
 							className={tw(
 								"px-2 py-1 text-center font-bold border bg-gray-100 text-gray-900 hover:(bg-green-500 text-white) transition-colors rounded-md",
 							)}
@@ -165,6 +170,9 @@ function ColorMind() {
 										{choices.map((c) => (
 											<span
 												key={`choice_${c}_${idx}`}
+												onKeyUp={() =>
+													!store.guessed[idx] ? store.addGuess(idx, c) : null
+												}
 												onClick={() =>
 													!store.guessed[idx] ? store.addGuess(idx, c) : null
 												}
@@ -201,6 +209,7 @@ function ColorMind() {
 							href="https://twitter.com/robdimarzo/status/1440709989341941776?s=20"
 							title="link to inspi"
 							target="_blank"
+							rel="noreferrer"
 						>
 							this tweet
 						</a>

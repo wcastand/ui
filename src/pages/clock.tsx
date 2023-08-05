@@ -1,22 +1,20 @@
 import { create } from "zustand"
 import { css } from "twind/css"
 import { apply, tw } from "twind"
-import { shallow } from "zustand/shallow"
 import { Temporal } from "@js-temporal/polyfill"
 
 import { container, section } from "../components"
 import { useEffect } from "react"
 
 const wrapper = apply(
-	`mx-auto rounded-sm border-2 border-gray-900 font-normal font-sans text-base rounded overflow-hidden`,
+	"mx-auto rounded-sm border-2 border-gray-900 font-normal font-sans text-base rounded overflow-hidden",
 )
 
-const allStoreSelector = (s: State) => s
 export type State = {
 	time: Temporal.PlainDateTime
 	update: () => void
 }
-const useStore = create<State>((set) => ({
+const useStore = create<State>()((set) => ({
 	time: Temporal.Now.plainDateTimeISO(),
 	update: () => set({ time: Temporal.Now.plainDateTimeISO() }),
 }))
@@ -50,11 +48,10 @@ const dlabel = css`
 `
 
 function Clock() {
-	const { time, update } = useStore(allStoreSelector, shallow)
+	const { time, update } = useStore((s) => s)
 
 	useEffect(() => {
-		let timerid: NodeJS.Timer
-		timerid = setInterval(() => {
+		const timerid: NodeJS.Timer = setInterval(() => {
 			update()
 		}, 1000)
 		return () => clearInterval(timerid)
@@ -81,6 +78,7 @@ function Clock() {
 						<h1 className={tw("font-bold text-red-300", dlabel)}>{time.day}</h1>
 						<div className={tw("px-4")}>
 							<svg viewBox="0 0 36 20" className={tw("w-full")}>
+								<title>Clock</title>
 								<text
 									x="0"
 									y="15"
@@ -90,6 +88,7 @@ function Clock() {
 								</text>
 							</svg>
 							<svg viewBox="0 0 36 20" className={tw("w-full relative -top-8")}>
+								<title>Clock</title>
 								<text
 									x="0"
 									y="15"

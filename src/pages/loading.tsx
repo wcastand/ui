@@ -41,7 +41,7 @@ function GoeySpinner({ nb = 4, color }: { nb?: number; color?: string }) {
 	return (
 		<div
 			className={tw(
-				`relative`,
+				"relative",
 				css`
 					width: 100px;
 					height: 100px;
@@ -79,7 +79,7 @@ function GoeySpinner({ nb = 4, color }: { nb?: number; color?: string }) {
 }
 
 const wrapperduo = apply(
-	`absolute top-0 left-0 flex flex-row justify-center items-center`,
+	"absolute top-0 left-0 flex flex-row justify-center items-center",
 	css`
 		transform-origin: center center;
 		width: 100px;
@@ -170,7 +170,7 @@ function GoingUp() {
 			)}
 		>
 			<div
-				className={tw(`absolute w-full h-1 bottom-0 left-0 bg-yellow-200`)}
+				className={tw("absolute w-full h-1 bottom-0 left-0 bg-yellow-200")}
 			/>
 			<animated.div style={springT} className={tw("absolute bottom-1")}>
 				<Tree color={"green-200"} />
@@ -196,7 +196,13 @@ function GoingUp() {
 	)
 }
 
-const Star = ({ className, x, y, ...props }: any) => (
+const Star = ({
+	className,
+	x,
+	y,
+	...props
+	// rome-ignore lint/suspicious/noExplicitAny: <explanation>
+}: any) => (
 	<animated.div
 		className={tw(
 			"absolute bg-yellow-300",
@@ -263,8 +269,8 @@ function FillingCube() {
 	})
 
 	const draw = useCallback(
-		(ctx) => {
-			if (state.current === null) return
+		(ctx: CanvasRenderingContext2D | null) => {
+			if (state.current === null || ctx === null) return
 			ctx.fillStyle = state.current.color
 			ctx.fillRect(state.current.x, state.current.y, 10, 10)
 			if (state.current.x + 10 < 100) state.current.x += 10
@@ -320,6 +326,7 @@ function Loading() {
 				width={0}
 				height={0}
 			>
+				<title>Loading</title>
 				<defs>
 					<filter id="goo">
 						<feGaussianBlur

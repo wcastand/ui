@@ -12,7 +12,7 @@ import { fromNow } from "../utils"
 import { container, section } from "../components"
 
 const wrapper = apply(
-	`mx-auto rounded-sm border shadow`,
+	"mx-auto rounded-sm border shadow",
 	css`
 		width: 420px;
 		@media (max-width: 640px) {
@@ -100,6 +100,7 @@ const useStore = create(
 
 export type TodoProps = {
 	item: TodoType
+	// rome-ignore lint/suspicious/noExplicitAny: <explanation>
 	style: any
 	remove: (id: string) => void
 	complete: (id: string, value: boolean) => void

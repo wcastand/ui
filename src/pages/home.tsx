@@ -57,7 +57,7 @@ const useStore = create<State>((set, get) => ({
 		const y = Math.floor(h / 10)
 		const size = x * y
 		const lives = Math.floor(size * 0.2)
-		let state: boolean[] = []
+		const state: boolean[] = []
 		for (let i = 0; i < size; i++) state[i] = false
 		for (let i = 0; i < lives; i++) state[randomInteger(0, size)] = true
 		set({ state, x, y, playing: true })
@@ -158,10 +158,10 @@ function Home() {
 						"absolute top-2 right-2 z-10 flex flex-row justify-center items-center gap-1",
 					)}
 				>
-					<button className={tw(btn)} onClick={reset}>
+					<button className={tw(btn)} onClick={reset} type="reset">
 						reset
 					</button>
-					<button className={tw(btn)} onClick={() => toggle()}>
+					<button className={tw(btn)} onClick={() => toggle()} type="button">
 						{isPlaying ? <TiMediaPause size={20} /> : <TiMediaPlay size={20} />}
 					</button>
 				</div>
@@ -188,9 +188,10 @@ function Home() {
 					<animated.div style={trail[4]}>
 						<a
 							target="_blank"
+							rel="noreferrer"
 							className={tw(link)}
 							href="https://twitter.com/wcastand"
-							tabIndex={1}
+							tabIndex={-1}
 							accessKey="t"
 							title="Twitter"
 						>
@@ -199,9 +200,10 @@ function Home() {
 						-
 						<a
 							target="_blank"
+							rel="noreferrer"
 							className={tw(link)}
 							href="https://github.com/wcastand"
-							tabIndex={2}
+							tabIndex={-2}
 							accessKey="g"
 							title="Github"
 						>
@@ -210,9 +212,10 @@ function Home() {
 						-
 						<a
 							target="_blank"
+							rel="noreferrer"
 							className={tw(link)}
 							href="https://www.linkedin.com/in/wcastand/"
-							tabIndex={3}
+							tabIndex={-3}
 							accessKey="l"
 							title="Linkedin"
 						>

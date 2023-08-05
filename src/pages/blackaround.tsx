@@ -58,7 +58,7 @@ function BlackAround() {
 				>
 					<div
 						className={tw(
-							`relative text-base grid grid-cols-1 gap-0 justify-start items-start`,
+							"relative text-base grid grid-cols-1 gap-0 justify-start items-start",
 						)}
 					>
 						<span className={tw(text, latter)}>Black</span>
@@ -93,6 +93,7 @@ function BlackAround() {
 							href="https://unsplash.com/photos/pumko2FFxY0"
 							title="link to pic"
 							target="_blank"
+							rel="noreferrer"
 						>
 							pic
 						</a>
@@ -103,6 +104,7 @@ function BlackAround() {
 							href="https://dribbble.com/shots/15899930-Intro-Animation-Awwwards-Course"
 							title="link to inspi"
 							target="_blank"
+							rel="noreferrer"
 						>
 							inspiration
 						</a>
